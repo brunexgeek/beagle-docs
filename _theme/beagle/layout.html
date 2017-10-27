@@ -1,0 +1,26 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		{% block htmltitle %}
+		<title>{{ title|striptags|e }}{{ titlesuffix }}</title>
+		{% endblock %}
+		<link rel="stylesheet" href="{{ pathto('_static/reset.css', 1) }}" type="text/css" />
+		<link rel="stylesheet" href="{{ pathto('_static/' + style, 1) }}" type="text/css" />
+	</head>
+	<body>
+		{% block extrabody %} {% endblock %}
+
+		{# PAGE CONTENT #}
+		<div class="nav-content">
+			<div class="rst-content">
+				{% include "breadcrumbs.html" %}
+				<div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+					<div itemprop="articleBody">
+					{% block body %}{% endblock %}
+					</div>
+				</div>
+				{% include "footer.html" %}
+			</div>
+		</div>
+	</body>
+</html>
