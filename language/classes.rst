@@ -1,3 +1,5 @@
+.. _section-Classes:
+
 Classes
 =======
 
@@ -20,6 +22,8 @@ Objects are created from classes using the ``new`` keyword.
 
 Classes can contain methods, variables and constants. Every element inside a class is denoted as class member.
 
+.. _section-Classes-Methods:
+
 Methods
 -------
 
@@ -33,6 +37,8 @@ Methods are functions identified by name and bound to a class. You can define me
     }
 
 Methods are similar to :ref:`functions <section-functions>`. However, methods use blocks even when there is only one expression and don't use the operator ``=>`` before the block.
+
+.. _section-Classes-Modifiers:
 
 Access Modifiers
 ----------------

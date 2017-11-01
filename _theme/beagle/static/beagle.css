@@ -65,12 +65,19 @@ body {
     background-color: #eee;
 }
 
+.document {
+    width: 720px;
+    margin: 1rem auto 0 auto;
+    background-color: #fff;
+}
+
 .rst-content {
-    max-width: 900px;
+    max-width: 720px;
     background-color: #fff;
     padding: 1.5rem 2.5rem;
     color: #555;
     line-height: 1.3rem;
+    background: url(draft.png) 0 0 repeat;
 }
 
 .rst-content p {
@@ -119,4 +126,8 @@ body {
 
 .rst-content ul ul ul {
     list-style-type: square;
+}
+
+.rst-content .xref.std-ref {
+    color: red;
 }
