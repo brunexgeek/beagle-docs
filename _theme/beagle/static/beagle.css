@@ -24,13 +24,21 @@ pre, code {
     font-family: 'Consolas', monospace;
 }
 
-.highlight-beagle pre {
+.rst-content pre,
+.rst-content .admonition.note {
     background: #fdfdf7;
     border: 1px solid #e7e7d6;
     padding: 1rem 1.5rem;
     margin: 1rem 0;
-    font-size: .9rem;
     color: #444;
+}
+
+.rst-content .admonition-title {
+    font-weight: 600;
+}
+
+.highlight-beagle pre {
+    font-size: .9rem;
     line-height: 1.2rem;
 }
 
