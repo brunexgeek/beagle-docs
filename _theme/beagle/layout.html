@@ -12,17 +12,24 @@
 
 		<div class='document'>
 			<div class="nav-content">
-				<div class="rst-content">
-					{% include "breadcrumbs.html" %}
-					<div role='main' itemscope="itemscope" itemtype="http://schema.org/Article">
-						<div itemprop='name' style='display: none;'>{{ title|striptags|e }}</div>
-						<div itemprop="articleBody">
-						{% block body %}{% endblock %}
-						</div>
-					</div>
-					{% include "footer.html" %}
-				</div>
+				{% block menu %}
+				{% set global_toc = toctree(maxdepth=3, collapse=true, includehidden=True) %}
+				{% if global_toc %}
+					  {{ global_toc }}
+				{% endif %}
+				{% endblock %}
 			</div>
+			<div class="rst-content">
+				{% include "breadcrumbs.html" %}
+				<div role='main' itemscope="itemscope" itemtype="http://schema.org/Article">
+					<div itemprop='name' style='display: none;'>{{ title|striptags|e }}</div>
+					<div itemprop="articleBody">
+					{% block body %}{% endblock %}
+					</div>
+				</div>
+				{% include "footer.html" %}
+			</div>
+		
 		</div>
 	</body>
 </html>
