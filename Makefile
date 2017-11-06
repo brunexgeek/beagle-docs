@@ -7,16 +7,19 @@ SPHINXBUILD   = sphinx-build
 SPHINXPROJ    = Beagle
 SOURCEDIR     = $(shell pwd)
 BUILDDIR      = $(shell pwd)/_build
+SCSS          = $(SOURCEDIR)/_theme/beagle/scss/beagle.scss
+CSS           = $(SOURCEDIR)/_theme/beagle/static/beagle.css
 
 # Put it first so that "make" without argument is like "make help".
 help:
 	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
-.PHONY: help Makefile
+html: $(CSS) Makefile
+	@$(SPHINXBUILD) -M html "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
-# Catch-all target: route all unknown targets to Sphinx using the new
-# "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
-%: Makefile
-	rm -f "$(BUILDDIR)/$@/_static/beagle.css"
-	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
-	ln -sf "$(SOURCEDIR)/_theme/beagle/static/beagle.css" "$(BUILDDIR)/$@/_static/beagle.css"
+$(CSS): $(SCSS)
+	scss -t expanded $(SCSS) $(CSS)
+	cp $(CSS) $(BUILDDIR)/html/_static
+
+.PHONY: help Makefile html
+

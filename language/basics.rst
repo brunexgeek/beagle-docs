@@ -34,7 +34,7 @@ Constants are read-only and limited-scope storages for results of expressions. Y
 	const result = 5 * 4 / 2   // 'int' constant
 	Console.print(result)      // 10
 
-Usually, the type of the constant can be infered by the compiler in the moment of the declaration by inspecting the initialization value. In the example above, the compiler will deduce the type is ``int``. You can also specify manually the type using the following syntax:
+Usually, the type of the constant can be inferred by the compiler in the moment of the declaration by inspecting the initialization value. In the above example, the compiler will infer the type is ``int``. You can also specify manually the type using the following syntax:
 
 .. code-block:: beagle
 
@@ -51,19 +51,21 @@ Being read-only, constants cannot be changed after initialization.
 Variables
 ---------
 
-Variables are read-write and limited-scope storages. They are pretty much like constants, but their content can change after initialization. Variable declarations are made using the keyword ``var``. Like with constants, the compiler usually can deduce the variable type.
+Variables are read-write and limited-scope storages. They are pretty much like constants, but their content can change after initialization. Variable declarations are made using the ``var`` keyword. Like with constants, the compiler usually can infer the variable type.
 
 .. code-block:: beagle
 
 	var result = 0
 	result = 16 / 2
 
-Since variables are read-write storages, you are not required to initialize them in the declaration. In this case, the compiler will give them a default initialization value. However, you will be required to provide the variable type, since the compiler will not have any expression to deduce it from.
+Since variables are read-write storages, you are not required to initialize them in the declaration. In this case, you will be required to provide the variable type and the compiler will try to give it a default initialization value.
 
 .. code-block:: beagle
 
     var result : int  // initialized with 0 by default
     result = 16 / 2
+
+If the compiler cannot assign a default value (e.g. variable of class without empty constructor) a compilation error will be raised.
 
 Blocks
 ------

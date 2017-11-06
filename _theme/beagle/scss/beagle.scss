@@ -22,8 +22,8 @@ h1, h2, h3, h4 {
     text-shadow: 1px 1px 2px #ddd;
 }
 
-h1 { font-size: 1.75rem; color: #DC322F; }
-h2 { font-size: 1.25rem; color: #094959;}
+h1 { font-size: 1.75rem; color: #094959; }
+h2 { font-size: 1.25rem; color: #094959; }
 h3 { font-size: 1rem; }
 h4 { font-size: 1rem; }
 
@@ -82,28 +82,35 @@ body {
     }
 
 
-    .highlight-beagle pre {
+    .highlight-beagle {
+
+        pre {
         font-size: .9rem;
         line-height: 1.2rem;
-    }
+        }
 
-    .highlight-beagle .c1 {
-        color: #998;
-        font-style: italic;
-    }
+        .nd {
+            color: #998;
+        }
 
-    .highlight-beagle .k {
-        /*color: #2557a8;*/
-        font-weight: 600;
-    }
+        .c1 {
+            color: #998;
+            font-style: italic;
+        }
 
-    .highlight-beagle .kt {
-        color: #2f8ad2;
-        font-weight: 600;
-    }
+        .k {
+            /*color: #2557a8;*/
+            font-weight: 600;
+        }
 
-    .highlight-beagle .mi {
-        color: #008080
+        .kt {
+            color: #2f8ad2;
+            font-weight: 600;
+        }
+
+        .mi {
+            color: #008080
+        }
     }
 
     p {
