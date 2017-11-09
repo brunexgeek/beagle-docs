@@ -3,6 +3,7 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto+Slab:400,700");
 
 
+
 $menuWidth: 200px;
 $contentWidth: 720px;
 $gapWidth: 16px;
@@ -140,6 +141,25 @@ body {
         margin-bottom: .8rem;
     }
 
+    dl.non-terminal {
+        font-family: 'Cutive', 'Consolas', 'Courier', monospace;
+        margin-bottom: 2rem;
+        line-height: 1.25rem;
+
+        p {
+            margin: 0;
+        }
+
+        .bgram-string {
+            color: #009c00;
+        }
+
+        .bgram-detail {
+            color: #aaa;
+            font-style: italic;
+        }
+    }
+
     ul {
         margin-left: 1rem;
         list-style-type: disc;
@@ -155,6 +175,7 @@ body {
 
     .xref.std-ref {
         color: red;
+        text-decoration: line-through;
     }
 
 }

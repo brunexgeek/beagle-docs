@@ -124,6 +124,21 @@ body {
   margin-left: 1rem;
   margin-bottom: .8rem;
 }
+.rst-content dl.non-terminal {
+  font-family: 'Cutive', 'Consolas', 'Courier', monospace;
+  margin-bottom: 2rem;
+  line-height: 1.25rem;
+}
+.rst-content dl.non-terminal p {
+  margin: 0;
+}
+.rst-content dl.non-terminal .bgram-string {
+  color: #009c00;
+}
+.rst-content dl.non-terminal .bgram-detail {
+  color: #aaa;
+  font-style: italic;
+}
 .rst-content ul {
   margin-left: 1rem;
   list-style-type: disc;
@@ -136,6 +151,7 @@ body {
 }
 .rst-content .xref.std-ref {
   color: red;
+  text-decoration: line-through;
 }
 
 .toctree-l2 {

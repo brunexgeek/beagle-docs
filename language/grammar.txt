@@ -1,0 +1,260 @@
+! Structure
+! ---------
+
+Unit
+	: Package? Import* Type+
+	;
+
+Package
+	: "package" QualifiedName
+	;
+
+Import
+	: "import" QualifiedName ( "." "*" | "as" Name )?
+	;
+
+Type
+	: Class
+	;
+
+Class
+	: Annotation* "class" QualifiedName ClassBody?
+	;
+
+Annotation
+	: "@" QualifiedName
+	;
+
+ClassBody
+	: "{" Member* "}"
+	;
+
+Member
+	: Variable
+	: Constant
+	: Method
+	;
+
+Variable
+	: Annotation* "var" Name ( ":" TypeReference )? ( "=" Expression )?
+	;
+
+Constant
+	: Annotation* "const" Name ( ":" TypeReference )? "=" Expression
+	;
+
+Method
+	: Annotation* "def" Name Parameters Block?
+	;
+
+Parameters
+	: "(" ")"
+	: "(" Parameter ( "," Parameter )* ")"
+	;
+
+Parameter
+	: ( "var" | "const" )? Name ":" TypeReference
+	;
+
+QualifiedName
+	: Name ( "." Name )*
+	;
+
+TypeReference
+	: QualifiedName
+	;
+
+Name
+	: <UTF-16 '_', 'a'-'z', 'A'-'Z' or '0'-'9'>
+	;
+
+! Expressions
+! -----------
+
+Expression
+	: Disjunction ( AssignmentOperator Disjunction )*
+	;
+
+Disjunction
+	: Conjunction ( "or" Conjunction )*
+	;
+
+Conjunction
+	: EqualityComparison ( "and" EqualityComparison )*
+	;
+
+EqualityComparison
+	: Comparison ( EqualityOperation Comparison )*
+	;
+
+Comparison
+	: NamedInfix ( ComparisonOperation NamedInfix )*
+	;
+
+NamedInfix
+	: AdditiveExpression ( InOperation AdditiveExpression )*
+	: AdditiveExpression ( IsOperation TypeReference )?
+	;
+
+AdditiveExpression
+	: MultiplicativeExpression ( AdditiveOperation MultiplicativeExpression )*
+	;
+
+MultiplicativeExpression
+	: PrefixUnaryExpression ( MultiplicativeOperation PrefixUnaryExpression )*
+	;
+
+PrefixUnaryExpression
+	: PrefixUnaryOperation* PostfixUnaryExpression
+	;
+
+PostfixUnaryExpression
+	: AtomicExpression PostfixUnaryOperation*
+	;
+
+AtomicExpression
+	: "(" expression ")"
+	: LiteralConstant
+	: Name
+	;
+
+LiteralConstant
+	: BooleanLiteral
+	: StringLiteral
+	: IntegerLiteral
+	: HexadecimalLiteral
+	: "null"
+	;
+
+BooleanLiteral
+	: "true"
+	: "false"
+	;
+
+StringLiteral
+	: "'" Character* "'"
+	;
+
+IntegerLiteral
+	: Digit ( Digit | "_" )*
+	;
+
+HexadecimalLiteral
+	: "0x" HexDigit ( HexDigit | "_" )*
+	;
+
+Character
+	: <UTF-16 character>
+	;
+
+MultiplicativeOperation
+	: "*"
+	: "/"
+	: "%"
+	;
+
+AdditiveOperation
+	: "+"
+	: "-"
+	;
+
+InOperation
+	: "in"
+	: "!in"
+	;
+
+IsOperation
+	: "is"
+	: "!is"
+	;
+
+ComparisonOperation
+	: "<"
+	: ">"
+	: ">="
+	: "<="
+	;
+
+EqualityOperation
+	: "!="
+	: "=="
+	;
+
+AssignmentOperator
+	: "="
+	: "+="
+	: "-="
+	: "*="
+	: "/="
+	: "%="
+	;
+
+PrefixUnaryOperation
+	: "-"
+	: "+"
+	: "++"
+	: "--"
+	: "not"
+	;
+
+PostfixUnaryOperation
+	: "++"
+	: "--"
+	: ArrayAccess
+	: MemberAccessOperation PostfixUnaryExpression
+	;
+
+MemberAccessOperation
+	: "."
+	;
+
+ValueArguments
+	: "(" ")"
+	: "(" Argument ( "," Argument )* ")"
+	;
+
+Argument
+	: ( Name "=" )? Expression
+	;
+
+ArrayAccess
+	: "[" Expression ( "," Expression )* "]"
+	;
+
+Digit
+	: "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+	;
+
+
+HexDigit
+	: Digit | "a" | "b" | "c" | "d" | "e" | "f" | "A" | "B" | "C" | "D" | "E" | "F"
+	;
+
+
+
+! Statements
+! ----------
+
+Block
+	: "{" Statement* "}"
+	;
+
+Statement
+	: IfThenElse
+	: Return
+	: Expression
+	;
+
+IfThenElse
+	: "if" Expression "then" BlockOrStatement ( "else" BlockOrStatement )?
+	;
+
+BlockOrStatement
+	: Block
+	: Statement
+	;
+
+Return
+	: "return" Expression
+	;
+
