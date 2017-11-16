@@ -49,7 +49,16 @@ Type
 .. rst-class:: non-terminal
 
 Class
-	: \ :ref:`Annotation<section-Annotation>`\ \* \ :bgram-string:`"class"` \ :ref:`QualifiedName<section-QualifiedName>` \ :ref:`ClassBody<section-ClassBody>`\ ?
+	: \ :ref:`Annotation<section-Annotation>`\ \* \ :bgram-string:`"class"` \ :ref:`QualifiedName<section-QualifiedName>` \ :ref:`Extends<section-Extends>`\ ? \ :ref:`ClassBody<section-ClassBody>`\ ?
+
+	;
+
+.. _section-Extends:
+
+.. rst-class:: non-terminal
+
+Extends
+	: \ :bgram-string:`":"` \ :ref:`TypeReference<section-TypeReference>` \ ( \ :bgram-string:`","` \ :ref:`TypeReference<section-TypeReference>` \ )\ \*
 
 	;
 
@@ -107,15 +116,15 @@ Constant
 .. rst-class:: non-terminal
 
 Method
-	: \ :ref:`Annotation<section-Annotation>`\ \* \ :bgram-string:`"def"` \ :ref:`Name<section-Name>` \ :ref:`Parameters<section-Parameters>` \ :ref:`Block<section-Block>`\ ?
+	: \ :ref:`Annotation<section-Annotation>`\ \* \ :bgram-string:`"def"` \ :ref:`Name<section-Name>` \ :ref:`ParameterList<section-ParameterList>` \ ( \ :bgram-string:`":"` \ :ref:`TypeReference<section-TypeReference>` \ )\ ? \ :ref:`Block<section-Block>`\ ?
 
 	;
 
-.. _section-Parameters:
+.. _section-ParameterList:
 
 .. rst-class:: non-terminal
 
-Parameters
+ParameterList
 	: \ :bgram-string:`"("` \ :bgram-string:`")"`
 
 	: \ :bgram-string:`"("` \ :ref:`Parameter<section-Parameter>` \ ( \ :bgram-string:`","` \ :ref:`Parameter<section-Parameter>` \ )\ \* \ :bgram-string:`")"`

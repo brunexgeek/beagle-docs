@@ -18,7 +18,11 @@ Type
 	;
 
 Class
-	: Annotation* "class" QualifiedName ClassBody?
+	: Annotation* "class" QualifiedName Extends? ClassBody?
+	;
+
+Extends
+	: ":" TypeReference ( "," TypeReference )*
 	;
 
 Annotation
@@ -44,10 +48,10 @@ Constant
 	;
 
 Method
-	: Annotation* "def" Name Parameters Block?
+	: Annotation* "def" Name ParameterList ( ":" TypeReference )? Block?
 	;
 
-Parameters
+ParameterList
 	: "(" ")"
 	: "(" Parameter ( "," Parameter )* ")"
 	;
