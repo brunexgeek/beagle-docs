@@ -175,7 +175,7 @@ Expressions
 .. rst-class:: non-terminal
 
 Expression
-	: \ :ref:`Disjunction<section-Disjunction>` \ ( \ :ref:`AssignmentOperator<section-AssignmentOperator>` \ :ref:`Disjunction<section-Disjunction>` \ )\ \*
+	: \ :ref:`Disjunction<section-Disjunction>` \ ( \ :ref:`AssignmentOperator<section-AssignmentOperator>` \ :ref:`Expression<section-Expression>` \ )\ \*
 
 	;
 
@@ -184,7 +184,7 @@ Expression
 .. rst-class:: non-terminal
 
 Disjunction
-	: \ :ref:`Conjunction<section-Conjunction>` \ ( \ :bgram-string:`"or"` \ :ref:`Conjunction<section-Conjunction>` \ )\ \*
+	: \ :ref:`Conjunction<section-Conjunction>` \ ( \ :bgram-string:`"or"` \ :ref:`Disjunction<section-Disjunction>` \ )\ \*
 
 	;
 
@@ -193,7 +193,7 @@ Disjunction
 .. rst-class:: non-terminal
 
 Conjunction
-	: \ :ref:`EqualityComparison<section-EqualityComparison>` \ ( \ :bgram-string:`"and"` \ :ref:`EqualityComparison<section-EqualityComparison>` \ )\ \*
+	: \ :ref:`EqualityComparison<section-EqualityComparison>` \ ( \ :bgram-string:`"and"` \ :ref:`Conjunction<section-Conjunction>` \ )\ \*
 
 	;
 
@@ -202,7 +202,7 @@ Conjunction
 .. rst-class:: non-terminal
 
 EqualityComparison
-	: \ :ref:`Comparison<section-Comparison>` \ ( \ :ref:`EqualityOperation<section-EqualityOperation>` \ :ref:`Comparison<section-Comparison>` \ )\ \*
+	: \ :ref:`Comparison<section-Comparison>` \ ( \ :ref:`EqualityOperation<section-EqualityOperation>` \ :ref:`EqualityComparison<section-EqualityComparison>` \ )\ \*
 
 	;
 
@@ -211,7 +211,7 @@ EqualityComparison
 .. rst-class:: non-terminal
 
 Comparison
-	: \ :ref:`NamedInfix<section-NamedInfix>` \ ( \ :ref:`ComparisonOperation<section-ComparisonOperation>` \ :ref:`NamedInfix<section-NamedInfix>` \ )\ \*
+	: \ :ref:`NamedInfix<section-NamedInfix>` \ ( \ :ref:`ComparisonOperation<section-ComparisonOperation>` \ :ref:`Comparison<section-Comparison>` \ )\ \*
 
 	;
 
@@ -222,7 +222,7 @@ Comparison
 NamedInfix
 	: \ :ref:`AdditiveExpression<section-AdditiveExpression>` \ ( \ :ref:`InOperation<section-InOperation>` \ :ref:`AdditiveExpression<section-AdditiveExpression>` \ )\ \*
 
-	: \ :ref:`AdditiveExpression<section-AdditiveExpression>` \ ( \ :ref:`IsOperation<section-IsOperation>` \ :ref:`TypeReference<section-TypeReference>` \ )\ ?
+	: \ :ref:`AdditiveExpression<section-AdditiveExpression>` \ :ref:`IsOperation<section-IsOperation>` \ :ref:`TypeReference<section-TypeReference>`
 
 	;
 
@@ -231,7 +231,7 @@ NamedInfix
 .. rst-class:: non-terminal
 
 AdditiveExpression
-	: \ :ref:`MultiplicativeExpression<section-MultiplicativeExpression>` \ ( \ :ref:`AdditiveOperation<section-AdditiveOperation>` \ :ref:`MultiplicativeExpression<section-MultiplicativeExpression>` \ )\ \*
+	: \ :ref:`MultiplicativeExpression<section-MultiplicativeExpression>` \ ( \ :ref:`AdditiveOperation<section-AdditiveOperation>` \ :ref:`AdditiveExpression<section-AdditiveExpression>` \ )\ \*
 
 	;
 
@@ -240,7 +240,7 @@ AdditiveExpression
 .. rst-class:: non-terminal
 
 MultiplicativeExpression
-	: \ :ref:`PrefixUnaryExpression<section-PrefixUnaryExpression>` \ ( \ :ref:`MultiplicativeOperation<section-MultiplicativeOperation>` \ :ref:`PrefixUnaryExpression<section-PrefixUnaryExpression>` \ )\ \*
+	: \ :ref:`PrefixUnaryExpression<section-PrefixUnaryExpression>` \ ( \ :ref:`MultiplicativeOperation<section-MultiplicativeOperation>` \ :ref:`MultiplicativeExpression<section-MultiplicativeExpression>` \ )\ \*
 
 	;
 
@@ -249,7 +249,7 @@ MultiplicativeExpression
 .. rst-class:: non-terminal
 
 PrefixUnaryExpression
-	: \ :ref:`PrefixUnaryOperation<section-PrefixUnaryOperation>`\ \* \ :ref:`PostfixUnaryExpression<section-PostfixUnaryExpression>`
+	: \ :ref:`PrefixUnaryOperation<section-PrefixUnaryOperation>`\ ? \ :ref:`PostfixUnaryExpression<section-PostfixUnaryExpression>`
 
 	;
 
@@ -258,7 +258,7 @@ PrefixUnaryExpression
 .. rst-class:: non-terminal
 
 PostfixUnaryExpression
-	: \ :ref:`AtomicExpression<section-AtomicExpression>` \ :ref:`PostfixUnaryOperation<section-PostfixUnaryOperation>`\ \*
+	: \ :ref:`AtomicExpression<section-AtomicExpression>` \ :ref:`PostfixUnaryOperation<section-PostfixUnaryOperation>`\ ?
 
 	;
 
@@ -267,7 +267,7 @@ PostfixUnaryExpression
 .. rst-class:: non-terminal
 
 AtomicExpression
-	: \ :bgram-string:`"("` \ :ref:`expression<section-expression>` \ :bgram-string:`")"`
+	: \ :bgram-string:`"("` \ :ref:`Expression<section-Expression>` \ :bgram-string:`")"`
 
 	: \ :ref:`LiteralConstant<section-LiteralConstant>`
 
@@ -285,8 +285,6 @@ LiteralConstant
 	: \ :ref:`StringLiteral<section-StringLiteral>`
 
 	: \ :ref:`IntegerLiteral<section-IntegerLiteral>`
-
-	: \ :ref:`HexadecimalLiteral<section-HexadecimalLiteral>`
 
 	: \ :bgram-string:`"null"`
 
@@ -308,7 +306,7 @@ BooleanLiteral
 .. rst-class:: non-terminal
 
 StringLiteral
-	: \ :bgram-string:`"'"` \ :ref:`Character<section-Character>`\ \* \ :bgram-string:`"'"`
+	: \ :bgram-detail:`<UTF-16 string>`
 
 	;
 
@@ -317,16 +315,7 @@ StringLiteral
 .. rst-class:: non-terminal
 
 IntegerLiteral
-	: \ :ref:`Digit<section-Digit>` \ ( \ :ref:`Digit<section-Digit>` \ | \ :bgram-string:`"_"` \ )\ \*
-
-	;
-
-.. _section-HexadecimalLiteral:
-
-.. rst-class:: non-terminal
-
-HexadecimalLiteral
-	: \ :bgram-string:`"0x"` \ :ref:`HexDigit<section-HexDigit>` \ ( \ :ref:`HexDigit<section-HexDigit>` \ | \ :bgram-string:`"_"` \ )\ \*
+	: \ :bgram-detail:`<hexadecimal, decimal, octal or binary integral number>`
 
 	;
 
@@ -370,7 +359,7 @@ AdditiveOperation
 InOperation
 	: \ :bgram-string:`"in"`
 
-	: \ :bgram-string:`"!in"`
+	: \ :bgram-string:`"not"` \ :bgram-string:`"in"`
 
 	;
 
@@ -381,7 +370,7 @@ InOperation
 IsOperation
 	: \ :bgram-string:`"is"`
 
-	: \ :bgram-string:`"!is"`
+	: \ :bgram-string:`"not"` \ :bgram-string:`"is"`
 
 	;
 
@@ -427,6 +416,14 @@ AssignmentOperator
 	: \ :bgram-string:`"/="`
 
 	: \ :bgram-string:`"%="`
+
+	: \ :bgram-string:`"&="`
+
+	: \ :bgram-string:`"|="`
+
+	: \ :bgram-string:`">>="`
+
+	: \ :bgram-string:`"<<="`
 
 	;
 
@@ -499,26 +496,6 @@ ArrayAccess
 	: \ :bgram-string:`"["` \ :ref:`Expression<section-Expression>` \ ( \ :bgram-string:`","` \ :ref:`Expression<section-Expression>` \ )\ \* \ :bgram-string:`"]"`
 
 	;
-
-.. _section-Digit:
-
-.. rst-class:: non-terminal
-
-Digit
-	: \ :bgram-string:`"0"` \ | \ :bgram-string:`"1"` \ | \ :bgram-string:`"2"` \ | \ :bgram-string:`"3"` \ | \ :bgram-string:`"4"` \ | \ :bgram-string:`"5"` \ | \ :bgram-string:`"6"` \ | \ :bgram-string:`"7"` \ | \ :bgram-string:`"8"` \ | \ :bgram-string:`"9"`
-
-	;
-
-
-.. _section-HexDigit:
-
-.. rst-class:: non-terminal
-
-HexDigit
-	: \ :ref:`Digit<section-Digit>` \ | \ :bgram-string:`"a"` \ | \ :bgram-string:`"b"` \ | \ :bgram-string:`"c"` \ | \ :bgram-string:`"d"` \ | \ :bgram-string:`"e"` \ | \ :bgram-string:`"f"` \ | \ :bgram-string:`"A"` \ | \ :bgram-string:`"B"` \ | \ :bgram-string:`"C"` \ | \ :bgram-string:`"D"` \ | \ :bgram-string:`"E"` \ | \ :bgram-string:`"F"`
-
-	;
-
 
 
 Statements

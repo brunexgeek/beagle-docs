@@ -76,48 +76,48 @@ Name
 ! -----------
 
 Expression
-	: Disjunction ( AssignmentOperator Disjunction )*
+	: Disjunction ( AssignmentOperator Expression )*
 	;
 
 Disjunction
-	: Conjunction ( "or" Conjunction )*
+	: Conjunction ( "or" Disjunction )*
 	;
 
 Conjunction
-	: EqualityComparison ( "and" EqualityComparison )*
+	: EqualityComparison ( "and" Conjunction )*
 	;
 
 EqualityComparison
-	: Comparison ( EqualityOperation Comparison )*
+	: Comparison ( EqualityOperation EqualityComparison )*
 	;
 
 Comparison
-	: NamedInfix ( ComparisonOperation NamedInfix )*
+	: NamedInfix ( ComparisonOperation Comparison )*
 	;
 
 NamedInfix
 	: AdditiveExpression ( InOperation AdditiveExpression )*
-	: AdditiveExpression ( IsOperation TypeReference )?
+	: AdditiveExpression IsOperation TypeReference
 	;
 
 AdditiveExpression
-	: MultiplicativeExpression ( AdditiveOperation MultiplicativeExpression )*
+	: MultiplicativeExpression ( AdditiveOperation AdditiveExpression )*
 	;
 
 MultiplicativeExpression
-	: PrefixUnaryExpression ( MultiplicativeOperation PrefixUnaryExpression )*
+	: PrefixUnaryExpression ( MultiplicativeOperation MultiplicativeExpression )*
 	;
 
 PrefixUnaryExpression
-	: PrefixUnaryOperation* PostfixUnaryExpression
+	: PrefixUnaryOperation? PostfixUnaryExpression
 	;
 
 PostfixUnaryExpression
-	: AtomicExpression PostfixUnaryOperation*
+	: AtomicExpression PostfixUnaryOperation?
 	;
 
 AtomicExpression
-	: "(" expression ")"
+	: "(" Expression ")"
 	: LiteralConstant
 	: Name
 	;
@@ -126,7 +126,6 @@ LiteralConstant
 	: BooleanLiteral
 	: StringLiteral
 	: IntegerLiteral
-	: HexadecimalLiteral
 	: "null"
 	;
 
@@ -136,15 +135,11 @@ BooleanLiteral
 	;
 
 StringLiteral
-	: "'" Character* "'"
+	: <UTF-16 string>
 	;
 
 IntegerLiteral
-	: Digit ( Digit | "_" )*
-	;
-
-HexadecimalLiteral
-	: "0x" HexDigit ( HexDigit | "_" )*
+	: <hexadecimal, decimal, octal or binary integral number>
 	;
 
 Character
@@ -164,12 +159,12 @@ AdditiveOperation
 
 InOperation
 	: "in"
-	: "!in"
+	: "not" "in"
 	;
 
 IsOperation
 	: "is"
-	: "!is"
+	: "not" "is"
 	;
 
 ComparisonOperation
@@ -191,6 +186,10 @@ AssignmentOperator
 	: "*="
 	: "/="
 	: "%="
+	: "&="
+	: "|="
+	: ">>="
+	: "<<="
 	;
 
 PrefixUnaryOperation
@@ -224,16 +223,6 @@ Argument
 ArrayAccess
 	: "[" Expression ( "," Expression )* "]"
 	;
-
-Digit
-	: "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
-	;
-
-
-HexDigit
-	: Digit | "a" | "b" | "c" | "d" | "e" | "f" | "A" | "B" | "C" | "D" | "E" | "F"
-	;
-
 
 
 ! Statements
