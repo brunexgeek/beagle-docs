@@ -30,24 +30,24 @@ Annotation
 	;
 
 ClassBody
-	: "{" Member* "}"
+	: "{" TypeMember* "}"
 	;
 
-Member
-	: Variable
-	: Constant
-	: Method
+TypeMember
+	: TypeVariable
+	: TypeConstant
+	: TypeFunction
 	;
 
-Variable
-	: Annotation* "var" Name ( ":" TypeReference )? ( "=" Expression )?
+TypeVariable
+	: Annotation* Variable
 	;
 
-Constant
-	: Annotation* "const" Name ( ":" TypeReference )? "=" Expression
+TypeConstant
+	: Annotation* Constant
 	;
 
-Method
+TypeFunction
 	: Annotation* "def" Name ParameterList ( ":" TypeReference )? Block?
 	;
 
@@ -65,7 +65,7 @@ QualifiedName
 	;
 
 TypeReference
-	: QualifiedName
+	: QualifiedName ( "?" )?
 	;
 
 Name
@@ -88,32 +88,32 @@ Conjunction
 	;
 
 EqualityComparison
-	: Comparison ( EqualityOperation EqualityComparison )*
+	: Comparison ( EqualityOperator EqualityComparison )*
 	;
 
 Comparison
-	: NamedInfix ( ComparisonOperation Comparison )*
+	: NamedInfix ( ComparisonOperator Comparison )*
 	;
 
 NamedInfix
-	: AdditiveExpression ( InOperation AdditiveExpression )*
-	: AdditiveExpression IsOperation TypeReference
+	: AdditiveExpression ( InOperator AdditiveExpression )*
+	: AdditiveExpression IsOperator TypeReference
 	;
 
 AdditiveExpression
-	: MultiplicativeExpression ( AdditiveOperation AdditiveExpression )*
+	: MultiplicativeExpression ( AdditiveOperator AdditiveExpression )*
 	;
 
 MultiplicativeExpression
-	: PrefixUnaryExpression ( MultiplicativeOperation MultiplicativeExpression )*
+	: PrefixUnaryExpression ( MultiplicativeOperator MultiplicativeExpression )*
 	;
 
 PrefixUnaryExpression
-	: PrefixUnaryOperation? PostfixUnaryExpression
+	: PrefixUnaryOperator? PostfixUnaryExpression
 	;
 
 PostfixUnaryExpression
-	: AtomicExpression PostfixUnaryOperation?
+	: AtomicExpression PostfixUnaryOperator?
 	;
 
 AtomicExpression
@@ -146,35 +146,35 @@ Character
 	: <UTF-16 character>
 	;
 
-MultiplicativeOperation
+MultiplicativeOperator
 	: "*"
 	: "/"
 	: "%"
 	;
 
-AdditiveOperation
+AdditiveOperator
 	: "+"
 	: "-"
 	;
 
-InOperation
+InOperator
 	: "in"
 	: "not" "in"
 	;
 
-IsOperation
+IsOperator
 	: "is"
 	: "not" "is"
 	;
 
-ComparisonOperation
+ComparisonOperator
 	: "<"
 	: ">"
 	: ">="
 	: "<="
 	;
 
-EqualityOperation
+EqualityOperator
 	: "!="
 	: "=="
 	;
@@ -192,7 +192,7 @@ AssignmentOperator
 	: "<<="
 	;
 
-PrefixUnaryOperation
+PrefixUnaryOperator
 	: "-"
 	: "+"
 	: "++"
@@ -200,18 +200,20 @@ PrefixUnaryOperation
 	: "not"
 	;
 
-PostfixUnaryOperation
+PostfixUnaryOperator
 	: "++"
 	: "--"
+	# arguments for function call
+	: ArgumentList   
 	: ArrayAccess
-	: MemberAccessOperation PostfixUnaryExpression
+	: MemberAccessOperator PostfixUnaryExpression
 	;
 
-MemberAccessOperation
+MemberAccessOperator
 	: "."
 	;
 
-ValueArguments
+ArgumentList
 	: "(" ")"
 	: "(" Argument ( "," Argument )* ")"
 	;
@@ -233,9 +235,19 @@ Block
 	;
 
 Statement
+	: Variable
+	: Constant
 	: IfThenElse
 	: Return
 	: Expression
+	;
+
+Variable
+	: "var" Name ( ":" TypeReference )? ( "=" Expression )?
+	;
+
+Constant
+	: "const" Name ( ":" TypeReference )? "=" Expression
 	;
 
 IfThenElse
