@@ -4,8 +4,8 @@ SPHINXBUILD   = sphinx-build
 SPHINXPROJ    = Beagle
 SOURCEDIR     = $(shell pwd)
 BUILDDIR      = $(shell pwd)/_build
-SCSS          = $(SOURCEDIR)/_theme/beagle/scss/beagle.scss
-CSS           = $(SOURCEDIR)/_theme/beagle/static/beagle.css
+SCSS          = $(SOURCEDIR)/_theme/sphinx_rtd_theme/scss/beagle.scss
+CSS           = $(SOURCEDIR)/_theme/sphinx_rtd_theme/static/css/beagle.css
 GSRC          = $(SOURCEDIR)/language/grammar.txt
 GDST          = $(SOURCEDIR)/language/grammar.rst
 

@@ -1,0 +1,162 @@
+@charset "UTF-8";
+
+
+
+.highlight-beagle {
+
+    pre {
+    font-size: .9rem;
+    line-height: 1.2rem;
+    }
+
+    .nd {
+        color: #998;
+    }
+
+    .c1 {
+        color: #998;
+        font-style: italic;
+    }
+
+    .k {
+        /*color: #2557a8;*/
+        font-weight: 600;
+    }
+
+    .kt {
+        color: #2f8ad2;
+        font-weight: 600;
+    }
+
+    .mi {
+        color: #008080
+    }
+}
+
+.rst-content .grammar {
+
+    dl dt {
+        font-weight: bold;
+    }
+
+    dl dd {
+        margin-left: 1rem;
+        margin-bottom: .8rem;
+    }
+
+    p {
+        margin: 0 !important;
+    }
+
+    dl.non-terminal {
+        font-family: 'Cutive', 'Consolas', 'Courier', monospace;
+        margin-bottom: 2rem;
+        line-height: 1.25rem;
+
+        p {
+            margin: 0;
+        }
+
+        .bgram-string {
+            color: #009c00;
+        }
+
+        .bgram-detail {
+            color: #aaa;
+            font-style: italic;
+        }
+    }
+
+}
+
+
+/**
+ * Theme hacks!
+ */
+
+@media screen /*and (min-width: 767px)*/ {
+
+        .wy-table-responsive table td {
+            /* !important prevents the common CSS stylesheets from overriding
+                this as on RTD they are loaded after this stylesheet */
+            white-space: normal !important;
+        }
+
+        .wy-table-responsive {
+            overflow: visible !important;
+        }
+
+        /* Adjust font size in the navigation bar */
+        .wy-menu-vertical a,
+        .wy-menu-vertical li.toctree-l3,
+        .wy-menu-vertical li.toctree-l4 {
+        font-size: .95em !important;
+        }
+
+        /* Brighter gray for navigation caption */
+        .wy-menu-vertical header,
+        .wy-menu-vertical p.caption {
+            color: #666;
+        }
+
+        .rst-content .section table td ul {
+            margin-bottom: 0;
+        }
+
+        .wy-table td,
+        .rst-content table.docutils td,
+        .rst-content table.field-list td,
+        .wy-table th,
+        .rst-content table.docutils th,
+        .rst-content table.field-list th {
+            font-size: .95em !important;
+        }
+
+        div[class^='highlight'] pre {
+            font-size: 0.85em !important;
+            line-height: 1.2em !important;
+        }
+
+        .document .xref.std-ref {
+            color: red;
+        }
+    /*
+        .wy-menu-vertical li.current a {
+            color: #666 !important;
+        }
+
+        .wy-menu-vertical li.current > a {
+            color: #404040 !important;
+        }*/
+
+        /* Remove the extra border in the version list container */
+        .rst-versions {
+            border: none !important;
+        }
+
+        /* Reduce the overall height of the versions box */
+        .rst-versions .rst-other-versions {
+            /* padding-top: 6px !important;
+            padding-bottom: 6px !important;*/
+        }
+
+        /* Adjust the navigation bottom padding to fit the version selector */
+        .wy-nav-side {
+            padding-bottom: 40px !important;
+        }
+
+        /* Brighter font color for version number at the top of navigation bar */
+        .wy-side-nav-search>div.version {
+            color: rgba(255, 255, 255, 0.8) !important;
+        }
+
+        .rst-versions .rst-other-versions dd a {
+            color: #d0d0d0 !important;
+        }
+
+        .rst-versions .rst-other-versions dd a.selected {
+            font-weight: bold !important;
+            color: #fff !important;
+        }
+
+    }
