@@ -61,6 +61,23 @@ You can import a single type or every type inside a subpackage.
     var numbers : Array // ERROR: who is "Array"?
     var hasher : beagle.security.SHA256 // if really exists, OK!
 
+By default, Beagle import every type inside the package ``beagle`` and provide the following aliases:
+
+====== ==============
+Alias  Type
+====== ==============
+long   beagle.Int64
+ulong  beagle.Uint64
+int    beagle.Int32
+uint   beagle.Uint32
+short  beagle.Int16
+ushort beagle.Uint16
+byte   beagle.UInt8
+char   beagle.Char
+float  beagle.Float32
+double beagle.Float64
+====== ==============
+
 .. It's recommended to avoid importing entire subpackages since this can cause an unnecessary extra overhead in the compilation process.
 
 .. _section-CompilationUnit-Type:

@@ -55,8 +55,8 @@ Variables are read-write and limited-scope storages. They are pretty much like c
 
 .. code-block:: beagle
 
-	var result = 0
-	result = 16 / 2
+    var result = 0
+    result = 16 / 2
 
 Since variables are read-write storages, you are not required to initialize them in the declaration. In this case, you will be required to provide the variable type and the compiler will try to give it a default initialization value.
 

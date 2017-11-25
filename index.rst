@@ -9,7 +9,7 @@ Welcome to Beagle's documentation!
 .. toctree::
     :maxdepth: 4
 
-    language/grammar.rst
     language/basics.rst
     language/units.rst
     language/classes.rst
+    language/grammar.rst
