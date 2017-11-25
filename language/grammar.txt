@@ -204,7 +204,7 @@ PostfixUnaryOperator
 	: "++"
 	: "--"
 	# arguments for function call
-	: ArgumentList   
+	: ArgumentList
 	: ArrayAccess
 	: MemberAccessOperator PostfixUnaryExpression
 	;

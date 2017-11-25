@@ -25,20 +25,23 @@ with open(sourceFile, 'rt') as input:
 		output.write(".. role:: bgram-string\n\n")
 		output.write(".. role:: bgram-detail\n\n")
 
+		output.write(".. container:: grammar\n\n")
+
 		for line in input:
 			line = line.strip()
 
 			if len(line) == 0:
 				output.write('\n')
 				continue
+			elif (line[0] == '#'):
+				continue
+
+			output.write('\t');
 
 			if line[0] == ':':
 				output.write('\t: ')
 				tokens = [ i for i in re.split( r'(\w+|"[^"]+"|\'[^\']+\'|<[^>]+>|\d+| |\?|\(|\)|\.|\*)', line[1:].strip() ) if len(i) > 0]
 				for i in tokens:
-					#if len(i) > 1:
-					#	output.write(' ')
-					#else:
 					if i != ' ':
 						output.write('\ ')
 
@@ -55,14 +58,12 @@ with open(sourceFile, 'rt') as input:
 				output.write('\n\n')
 			elif line[0] == ';':
 				output.write('\t;\n')
-			elif line[0] == '#':
-				continue
 			elif line[0] == '!':
 				output.write( line[1:].strip() );
 				output.write('\n')
 			else:
-				output.write('.. _section-' + line + ':\n\n')
-				output.write('.. rst-class:: non-terminal\n\n')
+				output.write('.. _section-' + line + ':\n')
+				output.write('\t.. rst-class:: non-terminal\n\n\t')
 				output.write(line)
 				output.write('\n')
 

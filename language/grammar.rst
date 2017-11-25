@@ -5,574 +5,523 @@ Grammar
 
 .. role:: bgram-detail
 
-Structure
----------
+.. container:: grammar
 
-.. _section-Unit:
+	Structure
+	---------
 
-.. rst-class:: non-terminal
+	.. _section-Unit:
+	.. rst-class:: non-terminal
 
-Unit
-	: \ :ref:`Package<section-Package>`\ ? \ :ref:`Import<section-Import>`\ \* \ :ref:`Type<section-Type>`\ +
+	Unit
+		: \ :ref:`Package<section-Package>`\ ? \ :ref:`Import<section-Import>`\ \* \ :ref:`Type<section-Type>`\ +
 
-	;
+		;
 
-.. _section-Package:
+	.. _section-Package:
+	.. rst-class:: non-terminal
 
-.. rst-class:: non-terminal
+	Package
+		: \ :bgram-string:`"package"` \ :ref:`QualifiedName<section-QualifiedName>`
 
-Package
-	: \ :bgram-string:`"package"` \ :ref:`QualifiedName<section-QualifiedName>`
+		;
 
-	;
+	.. _section-Import:
+	.. rst-class:: non-terminal
 
-.. _section-Import:
+	Import
+		: \ :bgram-string:`"import"` \ :ref:`QualifiedName<section-QualifiedName>` \ ( \ :bgram-string:`"."` \ :bgram-string:`"*"` \ | \ :bgram-string:`"as"` \ :ref:`Name<section-Name>` \ )\ ?
 
-.. rst-class:: non-terminal
+		;
 
-Import
-	: \ :bgram-string:`"import"` \ :ref:`QualifiedName<section-QualifiedName>` \ ( \ :bgram-string:`"."` \ :bgram-string:`"*"` \ | \ :bgram-string:`"as"` \ :ref:`Name<section-Name>` \ )\ ?
+	.. _section-Type:
+	.. rst-class:: non-terminal
 
-	;
+	Type
+		: \ :ref:`Class<section-Class>`
 
-.. _section-Type:
+		;
 
-.. rst-class:: non-terminal
+	.. _section-Class:
+	.. rst-class:: non-terminal
 
-Type
-	: \ :ref:`Class<section-Class>`
+	Class
+		: \ :ref:`Annotation<section-Annotation>`\ \* \ :bgram-string:`"class"` \ :ref:`QualifiedName<section-QualifiedName>` \ :ref:`Extends<section-Extends>`\ ? \ :ref:`ClassBody<section-ClassBody>`\ ?
 
-	;
+		;
 
-.. _section-Class:
+	.. _section-Extends:
+	.. rst-class:: non-terminal
 
-.. rst-class:: non-terminal
+	Extends
+		: \ :bgram-string:`":"` \ :ref:`TypeReference<section-TypeReference>` \ ( \ :bgram-string:`","` \ :ref:`TypeReference<section-TypeReference>` \ )\ \*
 
-Class
-	: \ :ref:`Annotation<section-Annotation>`\ \* \ :bgram-string:`"class"` \ :ref:`QualifiedName<section-QualifiedName>` \ :ref:`Extends<section-Extends>`\ ? \ :ref:`ClassBody<section-ClassBody>`\ ?
+		;
 
-	;
+	.. _section-Annotation:
+	.. rst-class:: non-terminal
 
-.. _section-Extends:
+	Annotation
+		: \ :bgram-string:`"@"` \ :ref:`QualifiedName<section-QualifiedName>`
 
-.. rst-class:: non-terminal
+		;
 
-Extends
-	: \ :bgram-string:`":"` \ :ref:`TypeReference<section-TypeReference>` \ ( \ :bgram-string:`","` \ :ref:`TypeReference<section-TypeReference>` \ )\ \*
+	.. _section-ClassBody:
+	.. rst-class:: non-terminal
 
-	;
+	ClassBody
+		: \ :bgram-string:`"{"` \ :ref:`TypeMember<section-TypeMember>`\ \* \ :bgram-string:`"}"`
 
-.. _section-Annotation:
+		;
 
-.. rst-class:: non-terminal
+	.. _section-TypeMember:
+	.. rst-class:: non-terminal
 
-Annotation
-	: \ :bgram-string:`"@"` \ :ref:`QualifiedName<section-QualifiedName>`
+	TypeMember
+		: \ :ref:`TypeVariable<section-TypeVariable>`
 
-	;
+		: \ :ref:`TypeConstant<section-TypeConstant>`
 
-.. _section-ClassBody:
+		: \ :ref:`TypeFunction<section-TypeFunction>`
 
-.. rst-class:: non-terminal
+		;
 
-ClassBody
-	: \ :bgram-string:`"{"` \ :ref:`TypeMember<section-TypeMember>`\ \* \ :bgram-string:`"}"`
+	.. _section-TypeVariable:
+	.. rst-class:: non-terminal
 
-	;
+	TypeVariable
+		: \ :ref:`Annotation<section-Annotation>`\ \* \ :ref:`Variable<section-Variable>`
 
-.. _section-TypeMember:
+		;
 
-.. rst-class:: non-terminal
+	.. _section-TypeConstant:
+	.. rst-class:: non-terminal
 
-TypeMember
-	: \ :ref:`TypeVariable<section-TypeVariable>`
+	TypeConstant
+		: \ :ref:`Annotation<section-Annotation>`\ \* \ :ref:`Constant<section-Constant>`
 
-	: \ :ref:`TypeConstant<section-TypeConstant>`
+		;
 
-	: \ :ref:`TypeFunction<section-TypeFunction>`
+	.. _section-TypeFunction:
+	.. rst-class:: non-terminal
 
-	;
+	TypeFunction
+		: \ :ref:`Annotation<section-Annotation>`\ \* \ :bgram-string:`"def"` \ :ref:`Name<section-Name>` \ :ref:`ParameterList<section-ParameterList>` \ ( \ :bgram-string:`":"` \ :ref:`TypeReference<section-TypeReference>` \ )\ ? \ :ref:`Block<section-Block>`\ ?
 
-.. _section-TypeVariable:
+		;
 
-.. rst-class:: non-terminal
+	.. _section-ParameterList:
+	.. rst-class:: non-terminal
 
-TypeVariable
-	: \ :ref:`Annotation<section-Annotation>`\ \* \ :ref:`Variable<section-Variable>`
+	ParameterList
+		: \ :bgram-string:`"("` \ :bgram-string:`")"`
 
-	;
+		: \ :bgram-string:`"("` \ :ref:`Parameter<section-Parameter>` \ ( \ :bgram-string:`","` \ :ref:`Parameter<section-Parameter>` \ )\ \* \ :bgram-string:`")"`
 
-.. _section-TypeConstant:
+		;
 
-.. rst-class:: non-terminal
+	.. _section-Parameter:
+	.. rst-class:: non-terminal
 
-TypeConstant
-	: \ :ref:`Annotation<section-Annotation>`\ \* \ :ref:`Constant<section-Constant>`
+	Parameter
+		: \ ( \ :bgram-string:`"var"` \ | \ :bgram-string:`"const"` \ )\ ? \ :ref:`Name<section-Name>` \ :bgram-string:`":"` \ :ref:`TypeReference<section-TypeReference>`
 
-	;
+		;
 
-.. _section-TypeFunction:
+	.. _section-QualifiedName:
+	.. rst-class:: non-terminal
 
-.. rst-class:: non-terminal
+	QualifiedName
+		: \ :ref:`Name<section-Name>` \ ( \ :bgram-string:`"."` \ :ref:`Name<section-Name>` \ )\ \*
 
-TypeFunction
-	: \ :ref:`Annotation<section-Annotation>`\ \* \ :bgram-string:`"def"` \ :ref:`Name<section-Name>` \ :ref:`ParameterList<section-ParameterList>` \ ( \ :bgram-string:`":"` \ :ref:`TypeReference<section-TypeReference>` \ )\ ? \ :ref:`Block<section-Block>`\ ?
+		;
 
-	;
+	.. _section-TypeReference:
+	.. rst-class:: non-terminal
 
-.. _section-ParameterList:
+	TypeReference
+		: \ :ref:`QualifiedName<section-QualifiedName>` \ ( \ :bgram-string:`"?"` \ )\ ?
 
-.. rst-class:: non-terminal
+		;
 
-ParameterList
-	: \ :bgram-string:`"("` \ :bgram-string:`")"`
+	.. _section-Name:
+	.. rst-class:: non-terminal
 
-	: \ :bgram-string:`"("` \ :ref:`Parameter<section-Parameter>` \ ( \ :bgram-string:`","` \ :ref:`Parameter<section-Parameter>` \ )\ \* \ :bgram-string:`")"`
+	Name
+		: \ :bgram-detail:`<UTF-16 '_', 'a'-'z', 'A'-'Z' or '0'-'9'>`
 
-	;
+		;
 
-.. _section-Parameter:
+	Expressions
+	-----------
 
-.. rst-class:: non-terminal
+	.. _section-Expression:
+	.. rst-class:: non-terminal
 
-Parameter
-	: \ ( \ :bgram-string:`"var"` \ | \ :bgram-string:`"const"` \ )\ ? \ :ref:`Name<section-Name>` \ :bgram-string:`":"` \ :ref:`TypeReference<section-TypeReference>`
+	Expression
+		: \ :ref:`Disjunction<section-Disjunction>` \ ( \ :ref:`AssignmentOperator<section-AssignmentOperator>` \ :ref:`Expression<section-Expression>` \ )\ \*
 
-	;
+		;
 
-.. _section-QualifiedName:
+	.. _section-Disjunction:
+	.. rst-class:: non-terminal
 
-.. rst-class:: non-terminal
+	Disjunction
+		: \ :ref:`Conjunction<section-Conjunction>` \ ( \ :bgram-string:`"or"` \ :ref:`Disjunction<section-Disjunction>` \ )\ \*
 
-QualifiedName
-	: \ :ref:`Name<section-Name>` \ ( \ :bgram-string:`"."` \ :ref:`Name<section-Name>` \ )\ \*
+		;
 
-	;
+	.. _section-Conjunction:
+	.. rst-class:: non-terminal
 
-.. _section-TypeReference:
+	Conjunction
+		: \ :ref:`EqualityComparison<section-EqualityComparison>` \ ( \ :bgram-string:`"and"` \ :ref:`Conjunction<section-Conjunction>` \ )\ \*
 
-.. rst-class:: non-terminal
+		;
 
-TypeReference
-	: \ :ref:`QualifiedName<section-QualifiedName>` \ ( \ :bgram-string:`"?"` \ )\ ?
+	.. _section-EqualityComparison:
+	.. rst-class:: non-terminal
 
-	;
+	EqualityComparison
+		: \ :ref:`Comparison<section-Comparison>` \ ( \ :ref:`EqualityOperator<section-EqualityOperator>` \ :ref:`EqualityComparison<section-EqualityComparison>` \ )\ \*
 
-.. _section-Name:
+		;
 
-.. rst-class:: non-terminal
+	.. _section-Comparison:
+	.. rst-class:: non-terminal
 
-Name
-	: \ :bgram-detail:`<UTF-16 '_', 'a'-'z', 'A'-'Z' or '0'-'9'>`
+	Comparison
+		: \ :ref:`NamedInfix<section-NamedInfix>` \ ( \ :ref:`ComparisonOperator<section-ComparisonOperator>` \ :ref:`Comparison<section-Comparison>` \ )\ \*
 
-	;
+		;
 
-Expressions
------------
+	.. _section-NamedInfix:
+	.. rst-class:: non-terminal
 
-.. _section-Expression:
+	NamedInfix
+		: \ :ref:`AdditiveExpression<section-AdditiveExpression>` \ ( \ :ref:`InOperator<section-InOperator>` \ :ref:`AdditiveExpression<section-AdditiveExpression>` \ )\ \*
 
-.. rst-class:: non-terminal
+		: \ :ref:`AdditiveExpression<section-AdditiveExpression>` \ :ref:`IsOperator<section-IsOperator>` \ :ref:`TypeReference<section-TypeReference>`
 
-Expression
-	: \ :ref:`Disjunction<section-Disjunction>` \ ( \ :ref:`AssignmentOperator<section-AssignmentOperator>` \ :ref:`Expression<section-Expression>` \ )\ \*
+		;
 
-	;
+	.. _section-AdditiveExpression:
+	.. rst-class:: non-terminal
 
-.. _section-Disjunction:
+	AdditiveExpression
+		: \ :ref:`MultiplicativeExpression<section-MultiplicativeExpression>` \ ( \ :ref:`AdditiveOperator<section-AdditiveOperator>` \ :ref:`AdditiveExpression<section-AdditiveExpression>` \ )\ \*
 
-.. rst-class:: non-terminal
+		;
 
-Disjunction
-	: \ :ref:`Conjunction<section-Conjunction>` \ ( \ :bgram-string:`"or"` \ :ref:`Disjunction<section-Disjunction>` \ )\ \*
+	.. _section-MultiplicativeExpression:
+	.. rst-class:: non-terminal
 
-	;
+	MultiplicativeExpression
+		: \ :ref:`PrefixUnaryExpression<section-PrefixUnaryExpression>` \ ( \ :ref:`MultiplicativeOperator<section-MultiplicativeOperator>` \ :ref:`MultiplicativeExpression<section-MultiplicativeExpression>` \ )\ \*
 
-.. _section-Conjunction:
+		;
 
-.. rst-class:: non-terminal
+	.. _section-PrefixUnaryExpression:
+	.. rst-class:: non-terminal
 
-Conjunction
-	: \ :ref:`EqualityComparison<section-EqualityComparison>` \ ( \ :bgram-string:`"and"` \ :ref:`Conjunction<section-Conjunction>` \ )\ \*
+	PrefixUnaryExpression
+		: \ :ref:`PrefixUnaryOperator<section-PrefixUnaryOperator>`\ ? \ :ref:`PostfixUnaryExpression<section-PostfixUnaryExpression>`
 
-	;
+		;
 
-.. _section-EqualityComparison:
+	.. _section-PostfixUnaryExpression:
+	.. rst-class:: non-terminal
 
-.. rst-class:: non-terminal
+	PostfixUnaryExpression
+		: \ :ref:`AtomicExpression<section-AtomicExpression>` \ :ref:`PostfixUnaryOperator<section-PostfixUnaryOperator>`\ ?
 
-EqualityComparison
-	: \ :ref:`Comparison<section-Comparison>` \ ( \ :ref:`EqualityOperator<section-EqualityOperator>` \ :ref:`EqualityComparison<section-EqualityComparison>` \ )\ \*
+		;
 
-	;
+	.. _section-AtomicExpression:
+	.. rst-class:: non-terminal
 
-.. _section-Comparison:
+	AtomicExpression
+		: \ :bgram-string:`"("` \ :ref:`Expression<section-Expression>` \ :bgram-string:`")"`
 
-.. rst-class:: non-terminal
+		: \ :ref:`LiteralConstant<section-LiteralConstant>`
 
-Comparison
-	: \ :ref:`NamedInfix<section-NamedInfix>` \ ( \ :ref:`ComparisonOperator<section-ComparisonOperator>` \ :ref:`Comparison<section-Comparison>` \ )\ \*
+		: \ :ref:`Name<section-Name>`
 
-	;
+		;
 
-.. _section-NamedInfix:
+	.. _section-LiteralConstant:
+	.. rst-class:: non-terminal
 
-.. rst-class:: non-terminal
+	LiteralConstant
+		: \ :ref:`BooleanLiteral<section-BooleanLiteral>`
 
-NamedInfix
-	: \ :ref:`AdditiveExpression<section-AdditiveExpression>` \ ( \ :ref:`InOperator<section-InOperator>` \ :ref:`AdditiveExpression<section-AdditiveExpression>` \ )\ \*
+		: \ :ref:`StringLiteral<section-StringLiteral>`
 
-	: \ :ref:`AdditiveExpression<section-AdditiveExpression>` \ :ref:`IsOperator<section-IsOperator>` \ :ref:`TypeReference<section-TypeReference>`
+		: \ :ref:`IntegerLiteral<section-IntegerLiteral>`
 
-	;
+		: \ :bgram-string:`"null"`
 
-.. _section-AdditiveExpression:
+		;
 
-.. rst-class:: non-terminal
+	.. _section-BooleanLiteral:
+	.. rst-class:: non-terminal
 
-AdditiveExpression
-	: \ :ref:`MultiplicativeExpression<section-MultiplicativeExpression>` \ ( \ :ref:`AdditiveOperator<section-AdditiveOperator>` \ :ref:`AdditiveExpression<section-AdditiveExpression>` \ )\ \*
+	BooleanLiteral
+		: \ :bgram-string:`"true"`
 
-	;
+		: \ :bgram-string:`"false"`
 
-.. _section-MultiplicativeExpression:
+		;
 
-.. rst-class:: non-terminal
+	.. _section-StringLiteral:
+	.. rst-class:: non-terminal
 
-MultiplicativeExpression
-	: \ :ref:`PrefixUnaryExpression<section-PrefixUnaryExpression>` \ ( \ :ref:`MultiplicativeOperator<section-MultiplicativeOperator>` \ :ref:`MultiplicativeExpression<section-MultiplicativeExpression>` \ )\ \*
+	StringLiteral
+		: \ :bgram-detail:`<UTF-16 string>`
 
-	;
+		;
 
-.. _section-PrefixUnaryExpression:
+	.. _section-IntegerLiteral:
+	.. rst-class:: non-terminal
 
-.. rst-class:: non-terminal
+	IntegerLiteral
+		: \ :bgram-detail:`<hexadecimal, decimal, octal or binary integral number>`
 
-PrefixUnaryExpression
-	: \ :ref:`PrefixUnaryOperator<section-PrefixUnaryOperator>`\ ? \ :ref:`PostfixUnaryExpression<section-PostfixUnaryExpression>`
+		;
 
-	;
+	.. _section-Character:
+	.. rst-class:: non-terminal
 
-.. _section-PostfixUnaryExpression:
+	Character
+		: \ :bgram-detail:`<UTF-16 character>`
 
-.. rst-class:: non-terminal
+		;
 
-PostfixUnaryExpression
-	: \ :ref:`AtomicExpression<section-AtomicExpression>` \ :ref:`PostfixUnaryOperator<section-PostfixUnaryOperator>`\ ?
+	.. _section-MultiplicativeOperator:
+	.. rst-class:: non-terminal
 
-	;
+	MultiplicativeOperator
+		: \ :bgram-string:`"*"`
 
-.. _section-AtomicExpression:
+		: \ :bgram-string:`"/"`
 
-.. rst-class:: non-terminal
+		: \ :bgram-string:`"%"`
 
-AtomicExpression
-	: \ :bgram-string:`"("` \ :ref:`Expression<section-Expression>` \ :bgram-string:`")"`
+		;
 
-	: \ :ref:`LiteralConstant<section-LiteralConstant>`
+	.. _section-AdditiveOperator:
+	.. rst-class:: non-terminal
 
-	: \ :ref:`Name<section-Name>`
+	AdditiveOperator
+		: \ :bgram-string:`"+"`
 
-	;
+		: \ :bgram-string:`"-"`
 
-.. _section-LiteralConstant:
+		;
 
-.. rst-class:: non-terminal
+	.. _section-InOperator:
+	.. rst-class:: non-terminal
 
-LiteralConstant
-	: \ :ref:`BooleanLiteral<section-BooleanLiteral>`
+	InOperator
+		: \ :bgram-string:`"in"`
 
-	: \ :ref:`StringLiteral<section-StringLiteral>`
+		: \ :bgram-string:`"not"` \ :bgram-string:`"in"`
 
-	: \ :ref:`IntegerLiteral<section-IntegerLiteral>`
+		;
 
-	: \ :bgram-string:`"null"`
+	.. _section-IsOperator:
+	.. rst-class:: non-terminal
 
-	;
+	IsOperator
+		: \ :bgram-string:`"is"`
 
-.. _section-BooleanLiteral:
+		: \ :bgram-string:`"not"` \ :bgram-string:`"is"`
 
-.. rst-class:: non-terminal
+		;
 
-BooleanLiteral
-	: \ :bgram-string:`"true"`
+	.. _section-ComparisonOperator:
+	.. rst-class:: non-terminal
 
-	: \ :bgram-string:`"false"`
+	ComparisonOperator
+		: \ :bgram-string:`"<"`
 
-	;
+		: \ :bgram-string:`">"`
 
-.. _section-StringLiteral:
+		: \ :bgram-string:`">="`
 
-.. rst-class:: non-terminal
+		: \ :bgram-string:`"<="`
 
-StringLiteral
-	: \ :bgram-detail:`<UTF-16 string>`
+		;
 
-	;
+	.. _section-EqualityOperator:
+	.. rst-class:: non-terminal
 
-.. _section-IntegerLiteral:
+	EqualityOperator
+		: \ :bgram-string:`"!="`
 
-.. rst-class:: non-terminal
+		: \ :bgram-string:`"=="`
 
-IntegerLiteral
-	: \ :bgram-detail:`<hexadecimal, decimal, octal or binary integral number>`
+		;
 
-	;
+	.. _section-AssignmentOperator:
+	.. rst-class:: non-terminal
 
-.. _section-Character:
+	AssignmentOperator
+		: \ :bgram-string:`"="`
 
-.. rst-class:: non-terminal
+		: \ :bgram-string:`"+="`
 
-Character
-	: \ :bgram-detail:`<UTF-16 character>`
+		: \ :bgram-string:`"-="`
 
-	;
+		: \ :bgram-string:`"*="`
 
-.. _section-MultiplicativeOperator:
+		: \ :bgram-string:`"/="`
 
-.. rst-class:: non-terminal
+		: \ :bgram-string:`"%="`
 
-MultiplicativeOperator
-	: \ :bgram-string:`"*"`
+		: \ :bgram-string:`"&="`
 
-	: \ :bgram-string:`"/"`
+		: \ :bgram-string:`"|="`
 
-	: \ :bgram-string:`"%"`
+		: \ :bgram-string:`">>="`
 
-	;
+		: \ :bgram-string:`"<<="`
 
-.. _section-AdditiveOperator:
+		;
 
-.. rst-class:: non-terminal
+	.. _section-PrefixUnaryOperator:
+	.. rst-class:: non-terminal
 
-AdditiveOperator
-	: \ :bgram-string:`"+"`
+	PrefixUnaryOperator
+		: \ :bgram-string:`"-"`
 
-	: \ :bgram-string:`"-"`
+		: \ :bgram-string:`"+"`
 
-	;
+		: \ :bgram-string:`"++"`
 
-.. _section-InOperator:
+		: \ :bgram-string:`"--"`
 
-.. rst-class:: non-terminal
+		: \ :bgram-string:`"not"`
 
-InOperator
-	: \ :bgram-string:`"in"`
+		;
 
-	: \ :bgram-string:`"not"` \ :bgram-string:`"in"`
+	.. _section-PostfixUnaryOperator:
+	.. rst-class:: non-terminal
 
-	;
+	PostfixUnaryOperator
+		: \ :bgram-string:`"++"`
 
-.. _section-IsOperator:
+		: \ :bgram-string:`"--"`
 
-.. rst-class:: non-terminal
+		: \ :ref:`ArgumentList<section-ArgumentList>`
 
-IsOperator
-	: \ :bgram-string:`"is"`
+		: \ :ref:`ArrayAccess<section-ArrayAccess>`
 
-	: \ :bgram-string:`"not"` \ :bgram-string:`"is"`
+		: \ :ref:`MemberAccessOperator<section-MemberAccessOperator>` \ :ref:`PostfixUnaryExpression<section-PostfixUnaryExpression>`
 
-	;
+		;
 
-.. _section-ComparisonOperator:
+	.. _section-MemberAccessOperator:
+	.. rst-class:: non-terminal
 
-.. rst-class:: non-terminal
+	MemberAccessOperator
+		: \ :bgram-string:`"."`
 
-ComparisonOperator
-	: \ :bgram-string:`"<"`
+		;
 
-	: \ :bgram-string:`">"`
+	.. _section-ArgumentList:
+	.. rst-class:: non-terminal
 
-	: \ :bgram-string:`">="`
+	ArgumentList
+		: \ :bgram-string:`"("` \ :bgram-string:`")"`
 
-	: \ :bgram-string:`"<="`
+		: \ :bgram-string:`"("` \ :ref:`Argument<section-Argument>` \ ( \ :bgram-string:`","` \ :ref:`Argument<section-Argument>` \ )\ \* \ :bgram-string:`")"`
 
-	;
+		;
 
-.. _section-EqualityOperator:
+	.. _section-Argument:
+	.. rst-class:: non-terminal
 
-.. rst-class:: non-terminal
+	Argument
+		: \ ( \ :ref:`Name<section-Name>` \ :bgram-string:`"="` \ )\ ? \ :ref:`Expression<section-Expression>`
 
-EqualityOperator
-	: \ :bgram-string:`"!="`
+		;
 
-	: \ :bgram-string:`"=="`
+	.. _section-ArrayAccess:
+	.. rst-class:: non-terminal
 
-	;
+	ArrayAccess
+		: \ :bgram-string:`"["` \ :ref:`Expression<section-Expression>` \ ( \ :bgram-string:`","` \ :ref:`Expression<section-Expression>` \ )\ \* \ :bgram-string:`"]"`
 
-.. _section-AssignmentOperator:
+		;
 
-.. rst-class:: non-terminal
 
-AssignmentOperator
-	: \ :bgram-string:`"="`
+	Statements
+	----------
 
-	: \ :bgram-string:`"+="`
+	.. _section-Block:
+	.. rst-class:: non-terminal
 
-	: \ :bgram-string:`"-="`
+	Block
+		: \ :bgram-string:`"{"` \ :ref:`Statement<section-Statement>`\ \* \ :bgram-string:`"}"`
 
-	: \ :bgram-string:`"*="`
+		;
 
-	: \ :bgram-string:`"/="`
+	.. _section-Statement:
+	.. rst-class:: non-terminal
 
-	: \ :bgram-string:`"%="`
+	Statement
+		: \ :ref:`Variable<section-Variable>`
 
-	: \ :bgram-string:`"&="`
+		: \ :ref:`Constant<section-Constant>`
 
-	: \ :bgram-string:`"|="`
+		: \ :ref:`IfThenElse<section-IfThenElse>`
 
-	: \ :bgram-string:`">>="`
+		: \ :ref:`Return<section-Return>`
 
-	: \ :bgram-string:`"<<="`
+		: \ :ref:`Expression<section-Expression>`
 
-	;
+		;
 
-.. _section-PrefixUnaryOperator:
+	.. _section-Variable:
+	.. rst-class:: non-terminal
 
-.. rst-class:: non-terminal
+	Variable
+		: \ :bgram-string:`"var"` \ :ref:`Name<section-Name>` \ ( \ :bgram-string:`":"` \ :ref:`TypeReference<section-TypeReference>` \ )\ ? \ ( \ :bgram-string:`"="` \ :ref:`Expression<section-Expression>` \ )\ ?
 
-PrefixUnaryOperator
-	: \ :bgram-string:`"-"`
+		;
 
-	: \ :bgram-string:`"+"`
+	.. _section-Constant:
+	.. rst-class:: non-terminal
 
-	: \ :bgram-string:`"++"`
+	Constant
+		: \ :bgram-string:`"const"` \ :ref:`Name<section-Name>` \ ( \ :bgram-string:`":"` \ :ref:`TypeReference<section-TypeReference>` \ )\ ? \ :bgram-string:`"="` \ :ref:`Expression<section-Expression>`
 
-	: \ :bgram-string:`"--"`
+		;
 
-	: \ :bgram-string:`"not"`
+	.. _section-IfThenElse:
+	.. rst-class:: non-terminal
 
-	;
+	IfThenElse
+		: \ :bgram-string:`"if"` \ :ref:`Expression<section-Expression>` \ :bgram-string:`"then"` \ :ref:`BlockOrStatement<section-BlockOrStatement>` \ ( \ :bgram-string:`"else"` \ :ref:`BlockOrStatement<section-BlockOrStatement>` \ )\ ?
 
-.. _section-PostfixUnaryOperator:
+		;
 
-.. rst-class:: non-terminal
+	.. _section-BlockOrStatement:
+	.. rst-class:: non-terminal
 
-PostfixUnaryOperator
-	: \ :bgram-string:`"++"`
+	BlockOrStatement
+		: \ :ref:`Block<section-Block>`
 
-	: \ :bgram-string:`"--"`
+		: \ :ref:`Statement<section-Statement>`
 
-	: \ :ref:`ArgumentList<section-ArgumentList>`
+		;
 
-	: \ :ref:`ArrayAccess<section-ArrayAccess>`
+	.. _section-Return:
+	.. rst-class:: non-terminal
 
-	: \ :ref:`MemberAccessOperator<section-MemberAccessOperator>` \ :ref:`PostfixUnaryExpression<section-PostfixUnaryExpression>`
+	Return
+		: \ :bgram-string:`"return"` \ :ref:`Expression<section-Expression>`
 
-	;
-
-.. _section-MemberAccessOperator:
-
-.. rst-class:: non-terminal
-
-MemberAccessOperator
-	: \ :bgram-string:`"."`
-
-	;
-
-.. _section-ArgumentList:
-
-.. rst-class:: non-terminal
-
-ArgumentList
-	: \ :bgram-string:`"("` \ :bgram-string:`")"`
-
-	: \ :bgram-string:`"("` \ :ref:`Argument<section-Argument>` \ ( \ :bgram-string:`","` \ :ref:`Argument<section-Argument>` \ )\ \* \ :bgram-string:`")"`
-
-	;
-
-.. _section-Argument:
-
-.. rst-class:: non-terminal
-
-Argument
-	: \ ( \ :ref:`Name<section-Name>` \ :bgram-string:`"="` \ )\ ? \ :ref:`Expression<section-Expression>`
-
-	;
-
-.. _section-ArrayAccess:
-
-.. rst-class:: non-terminal
-
-ArrayAccess
-	: \ :bgram-string:`"["` \ :ref:`Expression<section-Expression>` \ ( \ :bgram-string:`","` \ :ref:`Expression<section-Expression>` \ )\ \* \ :bgram-string:`"]"`
-
-	;
-
-
-Statements
-----------
-
-.. _section-Block:
-
-.. rst-class:: non-terminal
-
-Block
-	: \ :bgram-string:`"{"` \ :ref:`Statement<section-Statement>`\ \* \ :bgram-string:`"}"`
-
-	;
-
-.. _section-Statement:
-
-.. rst-class:: non-terminal
-
-Statement
-	: \ :ref:`Variable<section-Variable>`
-
-	: \ :ref:`Constant<section-Constant>`
-
-	: \ :ref:`IfThenElse<section-IfThenElse>`
-
-	: \ :ref:`Return<section-Return>`
-
-	: \ :ref:`Expression<section-Expression>`
-
-	;
-
-.. _section-Variable:
-
-.. rst-class:: non-terminal
-
-Variable
-	: \ :bgram-string:`"var"` \ :ref:`Name<section-Name>` \ ( \ :bgram-string:`":"` \ :ref:`TypeReference<section-TypeReference>` \ )\ ? \ ( \ :bgram-string:`"="` \ :ref:`Expression<section-Expression>` \ )\ ?
-
-	;
-
-.. _section-Constant:
-
-.. rst-class:: non-terminal
-
-Constant
-	: \ :bgram-string:`"const"` \ :ref:`Name<section-Name>` \ ( \ :bgram-string:`":"` \ :ref:`TypeReference<section-TypeReference>` \ )\ ? \ :bgram-string:`"="` \ :ref:`Expression<section-Expression>`
-
-	;
-
-.. _section-IfThenElse:
-
-.. rst-class:: non-terminal
-
-IfThenElse
-	: \ :bgram-string:`"if"` \ :ref:`Expression<section-Expression>` \ :bgram-string:`"then"` \ :ref:`BlockOrStatement<section-BlockOrStatement>` \ ( \ :bgram-string:`"else"` \ :ref:`BlockOrStatement<section-BlockOrStatement>` \ )\ ?
-
-	;
-
-.. _section-BlockOrStatement:
-
-.. rst-class:: non-terminal
-
-BlockOrStatement
-	: \ :ref:`Block<section-Block>`
-
-	: \ :ref:`Statement<section-Statement>`
-
-	;
-
-.. _section-Return:
-
-.. rst-class:: non-terminal
-
-Return
-	: \ :bgram-string:`"return"` \ :ref:`Expression<section-Expression>`
-
-	;
+		;
 
