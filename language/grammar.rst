@@ -5,10 +5,10 @@ Grammar
 
 .. role:: bgram-detail
 
-.. container:: grammar
+Structure
+---------
 
-	Structure
-	---------
+.. container:: grammar
 
 	.. _section-Unit:
 	.. rst-class:: non-terminal
@@ -110,6 +110,14 @@ Grammar
 
 		;
 
+	.. _section-AnonymousFunction:
+	.. rst-class:: non-terminal
+
+	AnonymousFunction
+		: \ :ref:`ParameterList<section-ParameterList>` \ ( \ :bgram-string:`":"` \ :ref:`TypeReference<section-TypeReference>` \ )\ ? \ :bgram-string:`"=>"` \ :ref:`BlockOrStatement<section-BlockOrStatement>`
+
+		;
+
 	.. _section-ParameterList:
 	.. rst-class:: non-terminal
 
@@ -152,8 +160,10 @@ Grammar
 
 		;
 
-	Expressions
-	-----------
+Expressions
+-----------
+
+.. container:: grammar
 
 	.. _section-Expression:
 	.. rst-class:: non-terminal
@@ -456,8 +466,10 @@ Grammar
 		;
 
 
-	Statements
-	----------
+Statements
+----------
+
+.. container:: grammar
 
 	.. _section-Block:
 	.. rst-class:: non-terminal
@@ -503,7 +515,7 @@ Grammar
 	.. rst-class:: non-terminal
 
 	IfThenElse
-		: \ :bgram-string:`"if"` \ :ref:`Expression<section-Expression>` \ :bgram-string:`"then"` \ :ref:`BlockOrStatement<section-BlockOrStatement>` \ ( \ :bgram-string:`"else"` \ :ref:`BlockOrStatement<section-BlockOrStatement>` \ )\ ?
+		: \ :bgram-string:`"if"` \ :ref:`Expression<section-Expression>` \ :bgram-string:`"then"` \ :ref:`BlockOrStatement<section-BlockOrStatement>` \ ( \ :bgram-string:`"elif"` \ :ref:`Expression<section-Expression>` \ :bgram-string:`"then"` \ :ref:`BlockOrStatement<section-BlockOrStatement>` \ )\ \* \ ( \ :bgram-string:`"else"` \ :ref:`BlockOrStatement<section-BlockOrStatement>` \ )\ ?
 
 		;
 

@@ -145,7 +145,7 @@ class BeagleLexer(RegexLexer):
             (r'/\*', Comment.Multiline, 'comment'),
             (ur'@%s' % idrest, Name.Decorator),
             (ur'(abstract|ca(?:se|tch)|d(?:ef|o)|e(?:lse|xtends)|'
-             ur'f(?:inal(?:ly)?|or(?:Some)?)|i(?:f|mplicit)|'
+             ur'f(?:inal(?:ly)?|or(?:Some)?)|i(?:f|mplicit|s|n)|then|elif|'
              ur'lazy|match|new|override|pr(?:ivate|otected)'
              ur'|re(?:quires|turn)|s(?:ealed|uper)|'
              ur't(?:h(?:is|row)|ry)|var|const|w(?:hile|ith)|yield)\b|'

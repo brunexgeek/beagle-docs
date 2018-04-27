@@ -16,6 +16,7 @@ if pos >= 0:
 else:
 	outputFile = sourceFile + '.rst'
 
+contained = False
 
 with open(sourceFile, 'rt') as input:
 	with open(outputFile, 'wt') as output:
@@ -25,8 +26,6 @@ with open(sourceFile, 'rt') as input:
 		output.write(".. role:: bgram-string\n\n")
 		output.write(".. role:: bgram-detail\n\n")
 
-		output.write(".. container:: grammar\n\n")
-
 		for line in input:
 			line = line.strip()
 
@@ -35,11 +34,23 @@ with open(sourceFile, 'rt') as input:
 				continue
 			elif (line[0] == '#'):
 				continue
+			elif line[0] == '!':
+				output.write( line[1:].strip() );
+				output.write('\n')
+				contained = False
+				continue
+
+			if not contained:
+				contained = True
+				output.write(".. container:: grammar\n\n")
+
 
 			output.write('\t');
 
 			if line[0] == ':':
+
 				output.write('\t: ')
+
 				tokens = [ i for i in re.split( r'(\w+|"[^"]+"|\'[^\']+\'|<[^>]+>|\d+| |\?|\(|\)|\.|\*)', line[1:].strip() ) if len(i) > 0]
 				for i in tokens:
 					if i != ' ':
@@ -58,9 +69,6 @@ with open(sourceFile, 'rt') as input:
 				output.write('\n\n')
 			elif line[0] == ';':
 				output.write('\t;\n')
-			elif line[0] == '!':
-				output.write( line[1:].strip() );
-				output.write('\n')
 			else:
 				output.write('.. _section-' + line + ':\n')
 				output.write('\t.. rst-class:: non-terminal\n\n\t')

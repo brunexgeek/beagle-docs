@@ -1,16 +1,6 @@
 Basics
 ======
 
-Statements
-----------
-
-Statements are syntatic elements that perform some action. There are different categories of statements that perform certain classes of actions, like assignments and control flow.
-
-.. code-block:: beagle
-
-    x = 10   // an assignment
-    return x // a return
-
 Expressions
 -----------
 
@@ -23,52 +13,18 @@ Expressions are syntatic elements that produce a result. They are composed by an
     5 * getQuantity()
 
 
+Statements
+----------
 
-Constants
----------
-
-Constants are read-only and limited-scope storages for results of expressions. You can create constants using the ``const`` keyword. Constants must be initialized when declared.
-
-.. code-block:: beagle
-
-	const result = 5 * 4 / 2   // 'int' constant
-	Console.print(result)      // 10
-
-Usually, the type of the constant can be inferred by the compiler in the moment of the declaration by inspecting the initialization value. In the above example, the compiler will infer the type is ``int``. You can also specify manually the type using the following syntax:
+Statements are syntatic elements that perform some action. There are different categories of statements that perform certain classes of actions, like assignments and control flow.
 
 .. code-block:: beagle
 
-	const result : int = 5 * 4 / 2   // explicitly an 'int' constant
-
-Being read-only, constants cannot be changed after initialization.
-
-.. code-block:: beagle
-
-	const result = 5 * 4 / 2
-	result = 0  // compilation error!
-
-
-Variables
----------
-
-Variables are read-write and limited-scope storages. They are pretty much like constants, but their content can change after initialization. Variable declarations are made using the ``var`` keyword. Like with constants, the compiler usually can infer the variable type.
-
-.. code-block:: beagle
-
-    var result = 0
-    result = 16 / 2
-
-Since variables are read-write storages, you are not required to initialize them in the declaration. In this case, you will be required to provide the variable type and the compiler will try to give it a default initialization value.
-
-.. code-block:: beagle
-
-    var result : int  // initialized with 0 by default
-    result = 16 / 2
-
-If the compiler cannot assign a default value (e.g. variable of class without empty constructor) a compilation error will be raised.
+    x = 10   // an assignment
+    return x // a return
 
 Blocks
-------
+++++++
 
 A block is a statement that group one or more expressions inside a scope. Blocks are delimited with ``{`` and ``}``. Expressions inside blocks are separated from each other by line breaks.
 
@@ -103,10 +59,86 @@ Variables and constants declared inside a block are only visible from the point 
             return 10 * x
         })
 
+
+Constants
++++++++++
+
+Constants are read-only and limited-scope storages for results of expressions. You can create constants using the ``const`` keyword. Constants must be initialized when declared.
+
+.. code-block:: beagle
+
+	const result = 5 * 4 / 2   // 'int' constant
+	Console.print(result)      // 10
+
+Usually, the type of the constant can be inferred by the compiler in the moment of the declaration by inspecting the initialization value. In the above example, the compiler will infer the type is ``int``. You can also specify manually the type using the following syntax:
+
+.. code-block:: beagle
+
+	const result : int = 5 * 4 / 2   // explicitly an 'int' constant
+
+Being read-only, constants cannot be changed after initialization.
+
+.. code-block:: beagle
+
+	const result = 5 * 4 / 2
+	result = 0  // compilation error!
+
+
+Variables
++++++++++
+
+Variables are read-write and limited-scope storages. They are pretty much like constants, but their content can change after initialization. Variable declarations are made using the ``var`` keyword. Like with constants, the compiler usually can infer the variable type.
+
+.. code-block:: beagle
+
+    var result = 0
+    result = 16 / 2
+
+Since variables are read-write storages, you are not required to initialize them in the declaration. In this case, you will be required to provide the variable type and the compiler will try to give it a default initialization value.
+
+.. code-block:: beagle
+
+    var result : int  // initialized with 0 by default
+    result = 16 / 2
+
+If the compiler cannot assign a default value (e.g. variable of class without empty constructor) a compilation error will be raised.
+
+Conditional
++++++++++++
+
+.. code-block:: beagle
+
+    const value = 5
+
+    if value % 2 == 0 then
+        print( value + " is multiple of 2" )
+    elif value % 3 == 0 then
+        print( value + " is multiple of 3" )
+    else
+        print( value + " is something else" )
+
+Return
+++++++
+
+The ``return`` statement ends the execution of the current function and returns a value to the caller. The value can be any expression.
+
+.. code-block:: beagle
+
+    return 5 // returns the integer constant 5
+
+    return value * value // returns the result of a multiplication
+
+For functions which does not have a return type, the expression must be omited.
+
+.. code-block:: beagle
+
+    return // returns nothing
+
+
 .. _section-functions:
 
-Functions
----------
+Anonymous functions
+-------------------
 
 Beagle introduces the concept of functional programming with `anonymous functions <https://en.wikipedia.org/wiki/Anonymous_function>`_. These functions can receive arguments, contain one or more expressions and return a result. When using more than one expression, you must put them inside a block.
 
@@ -144,3 +176,4 @@ Functions are `first-class citizens <https://en.wikipedia.org/wiki/First-class_c
             var y = x + 6
             return y
         });
+

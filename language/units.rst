@@ -63,20 +63,22 @@ You can import a single type or every type inside a subpackage.
 
 By default, Beagle import every type inside the package ``beagle`` and provide the following aliases:
 
-====== ==============
-Alias  Type
-====== ==============
-long   beagle.Int64
-ulong  beagle.Uint64
-int    beagle.Int32
-uint   beagle.Uint32
-short  beagle.Int16
-ushort beagle.Uint16
-byte   beagle.UInt8
-char   beagle.Char
-float  beagle.Float32
-double beagle.Float64
-====== ==============
+======== ====== ========================
+Type     Alias  Description
+======== ====== ========================
+int64    long   Signed integer 64-bits
+int32    int    Signed integer 32-bits
+int16    short  Signed integer 16-bits
+int8            Unsigned integer 8-bits
+uint64   ulong  Unsigned integer 64-bits
+uint32   uint   Unsigned integer 32-bits
+uint16   ushort Unsigned integer 16-bits
+         char
+uint8    byte   Unsigned integer 8-bits
+float32  float  Float-point 32-bits
+float64  double Float-point 64-bits
+String   string Immutable string
+======== ====== ========================
 
 .. It's recommended to avoid importing entire subpackages since this can cause an unnecessary extra overhead in the compilation process.
 
