@@ -143,12 +143,11 @@ class BeagleLexer(RegexLexer):
             (r'[^\S\n]+', Text),
             (r'//.*?\n', Comment.Single),
             (r'/\*', Comment.Multiline, 'comment'),
-            (ur'@%s' % idrest, Name.Decorator),
-            (ur'(abstract|ca(?:se|tch)|d(?:ef|o)|e(?:lse|xtends)|'
-             ur'f(?:inal(?:ly)?|or(?:Some)?)|i(?:f|mplicit|s|n)|then|elif|'
-             ur'lazy|match|new|override|pr(?:ivate|otected)'
-             ur'|re(?:quires|turn)|s(?:ealed|uper)|'
-             ur't(?:h(?:is|row)|ry)|var|const|w(?:hile|ith)|yield)\b|'
+            (ur'(@|#)%s' % idrest, Name.Decorator),
+            (ur'(ca(?:se|tch)|d(?:ef|o)|else|'
+             ur'finally|or|i(?:f|s|n)|then|elif|'
+             ur'lazy|match|new|return|self|struct|'
+             ur't(?:ry|hrow)|var|const|w(?:hile|ith)|yield)\b|'
              u'(<[%:-]|=>|>:|[#=@_\u21D2\u2190])(\\b|(?=\\s)|$)', Keyword),
             (ur':(?!%s)' % op, Keyword, 'type'),
             (ur'%s%s\b' % (upper, idrest), Name.Class),

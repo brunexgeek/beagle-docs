@@ -57,34 +57,3 @@ To append an annotation to some element, you must use the symbol ``@`` followed 
 In the example above, the member variable ``name`` is annotated with the ``Public`` annotation, which tells the compiler to apply public visibility to that member.
 
 
-Access Modifiers
-----------------
-
-Classes and class members can have access modifiers. These modifiers define the visibility of the member and are mutually exclusive. Unlike Java or C#, access modifiers are not specified using keywords. Instead, they are specified by using annotations.
-
-Public
-    Visible to everyone
-
-Module
-    Visible to every class inside the current module.
-
-Package
-    Visible to every class inside the same package.
-
-Protected
-    Visible to every descendant (members) or compilation unit (types).
-
-Private
-    Only visible to the current class (members). This modifier cannot be used with types.
-
-For example, to change the access modifier for a class, one could write:
-
-.. code-block:: beagle
-
-    @Package
-    class Foo
-
-Additionally, you can combine the annotation ``Static`` to indicate the member is accessible statically:
-
-* Static variables and constants are stored in the class definition (i.e. they are shared among all instances) instead of type instances.
-* Static methods can only access static members of the type (i.e. there is no ``this`` instance).

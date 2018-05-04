@@ -11,5 +11,6 @@ Welcome to Beagle's documentation!
 
     language/basics.rst
     language/units.rst
+    language/structures.rst
     language/classes.rst
     language/grammar.rst

@@ -82,9 +82,70 @@ String   string Immutable string
 
 .. It's recommended to avoid importing entire subpackages since this can cause an unnecessary extra overhead in the compilation process.
 
-.. _section-CompilationUnit-Type:
 
-Type declarations
------------------
+Hashtags
+--------
 
-See :ref:`section-Classes`.
+Hashtags enables you to associate meta-information to some Beagle statements. These meta-informations can be used by the compiler to perform special actions or to change the way tagged elements are evaluated during the compilation process.
+
+To add a hashtag to some statement, you must use the symbol ``#`` followed by the tag name. Tag names are any term starting with a alpabethic character, followed by any number of alpabethic characters and dashes. For example, ``#myhastag`` and ``#a-very-long-hashtag-name`` are both valid hashtags.
+
+.. code-block:: beagle
+
+    #public #deprecated
+    var name : string
+
+Hashtags not recognized by the compiler are ignored.
+
+
+.. _section-AcessModifiers:
+
+Access Modifiers
+----------------
+
+Variables, constants and functions can be tagged with hashtags that define the visibility of the element. These hashtags are mutually exclusive.
+
+#public
+    Visible everywhere
+
+#module
+    Visible inside the current module.
+
+#package
+    Visible inside the current package or subpackages (i.e. parent packages cannot access).
+
+#protected
+    Visible to every descendant (members inside classes) or inside the compilation unit (globals).
+
+#private
+    Only visible to the current class (members). This modifier cannot be used with types.
+
+The following table shows when each hashtag is applicable considering the location of the element being tagged. For example, you cannot use ``#private`` in a global variable.
+
+.. raw:: html
+
+    <style>table.bgl-aligned tbody td, table thead th { text-align: center; }</style>
+
+.. rst-class:: bgl-aligned
+
+========== ====== ========= =====
+Hashtag    Global Structure Class
+========== ====== ========= =====
+#public    X      X         X
+#module    X      X         X
+#package   X      X         X
+#protected X                X
+#private                    X
+========== ====== ========= =====
+
+For example, to change the access modifier for a class, one could write:
+
+.. code-block:: beagle
+
+    #package
+    class Foo
+
+.. _
+    Additionally, you can combine the annotation ``Static`` to indicate the member is accessible statically:
+    * Static variables and constants are stored in the class definition (i.e. they are shared among all instances) instead of type instances.
+    * Static methods can only access static members of the type (i.e. there is no ``this`` instance).
