@@ -81,16 +81,16 @@ String   string Immutable string
 Hashtags
 --------
 
-Hashtags enables you to associate meta-information to some Beagle statements. These meta-informations can be used by the compiler to perform special actions or to change the way tagged elements are evaluated during the compilation process.
+Hashtags enables you to associate meta-information to some Beagle statements. These meta-informations can be used by the compiler to perform special actions or to change the way tagged elements are processed during the compilation.
 
-To add a hashtag to some statement, you must use the symbol ``#`` followed by the tag name. Tag names are any term starting with a alpabethic character, followed by any number of alpabethic characters and dashes. For example, ``#myhastag`` and ``#a-very-long-hashtag-name`` are both valid hashtags.
+To add a hashtag to some statement, you must use the symbol ``#`` followed by the tag name. Tag names are any term starting with a alphabethic character, followed by any number of alphanumeric characters and dashes. For example, ``#myhastag`` and ``#a-very-long-hashtag-name`` are both valid hashtags.
 
 .. code-block:: beagle
 
     #public #deprecated
     var name : string
 
-Hashtags not recognized by the compiler are ignored.
+Unrecognized hashtags are ignored by the compiler.
 
 
 .. _section-AcessModifiers:
@@ -144,3 +144,44 @@ For example, to change the access modifier for a class, one could write:
     Additionally, you can combine the annotation ``Static`` to indicate the member is accessible statically:
     * Static variables and constants are stored in the class definition (i.e. they are shared among all instances) instead of type instances.
     * Static methods can only access static members of the type (i.e. there is no ``this`` instance).
+
+
+Type system
+-----------
+
+Beagle uses a strong type system with type inference.
+
++---------+-------------+-------------------------------------------------------------+
+|Category |Type         |Description                                                  |
++=========+=============+=============================================================+
+| Basic   | long        | Signed integer 64-bits                                      |
+|         +-------------+-------------------------------------------------------------+
+|         | int         | Signed integer 32-bits                                      |
+|         +-------------+-------------------------------------------------------------+
+|         | short       | Signed integer 16-bits                                      |
+|         +-------------+-------------------------------------------------------------+
+|         | byte        | Signed integer 8-bits                                       |
+|         +-------------+-------------------------------------------------------------+
+|         | ulong       | Unsigned integer 64-bits                                    |
+|         +-------------+-------------------------------------------------------------+
+|         | uint        | Unsigned integer 32-bits                                    |
+|         +-------------+-------------------------------------------------------------+
+|         | ushort      | Unsigned integer 16-bits                                    |
+|         +-------------+-------------------------------------------------------------+
+|         | char        | Unsigned integer 16-bits                                    |
+|         +-------------+-------------------------------------------------------------+
+|         | ubyte       | Unsigned integer 8-bits                                     |
+|         +-------------+-------------------------------------------------------------+
+|         | float       | Float-point 32-bits                                         |
+|         +-------------+-------------------------------------------------------------+
+|         | double      | Float-point 64-bits                                         |
+|         +-------------+-------------------------------------------------------------+
+|         | string      | Immutable string                                            |
++---------+-------------+-------------------------------------------------------------+
+| Complex | array       | Fixed size sequence of elements (any type)                  |
+|         +-------------+-------------------------------------------------------------+
+|         | structure   | Custom type containing variables                            |
+|         +-------------+-------------------------------------------------------------+
+|         | object      | Custom type containing variables, constants and functions   |
++---------+-------------+-------------------------------------------------------------+
+
