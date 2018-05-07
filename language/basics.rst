@@ -60,6 +60,8 @@ Variables and constants declared inside a block are only visible from the point 
         })
 
 
+.. _section-constants:
+
 Constants
 +++++++++
 
@@ -83,6 +85,8 @@ Being read-only, constants cannot be changed after initialization.
 	const result = 5 * 4 / 2
 	result = 0  // compilation error!
 
+
+.. _section-variables:
 
 Variables
 +++++++++
@@ -137,29 +141,35 @@ For functions which does not have a return type, the expression must be omited.
 
 .. _section-functions:
 
-Anonymous functions
--------------------
+Functions
+---------
 
-Beagle introduces the concept of functional programming with `anonymous functions <https://en.wikipedia.org/wiki/Anonymous_function>`_. These functions can receive arguments, contain one or more expressions and return a result. When using more than one expression, you must put them inside a block.
+Beagle introduces the concept of functional programming with regular functions and `anonymous functions <https://en.wikipedia.org/wiki/Anonymous_function>`_. These functions can receive arguments, contain one or more expressions and return a result. When using more than one expression, you must put them inside a block.
 
 .. code-block:: beagle
 
-    // function with single expression
+    def factorial( value : int )
+    {
+        var result = 1
+        for (i = 2; i < value; ++i)
+            result *= i
+        return result
+    }
+
+Anonymous functions are defined inside other functions, enabling fast implementation for specific operations like event handling or callbacks.
+
+.. code-block:: beagle
+
+    // anonymouns function with single expression
     (x : int) : int => return x * x
 
-    // a little more complex function
+    // a little more complex fanonymous unction
     (x : int, y : int) : int => {
         var z = x * y
         return z
     }
 
-Return type can be omited if the compiler can deduce it.
-
-.. code-block:: beagle
-
-    (x : int) => return x * x
-
-Functions are `first-class citizens <https://en.wikipedia.org/wiki/First-class_citizen>`_ so you can assign them to variables or pass as arguments for other functions or methods.
+The return type can be omited if the compiler can deduce it. Also, functions are `first-class citizens <https://en.wikipedia.org/wiki/First-class_citizen>`_ so you can assign them to variables or pass as arguments for other functions or methods.
 
 .. code-block:: beagle
 

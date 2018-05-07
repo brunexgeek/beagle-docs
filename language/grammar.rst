@@ -14,7 +14,7 @@ Structure
 	.. rst-class:: non-terminal
 
 	Unit
-		: \ :ref:`Package<section-Package>`\ ? \ :ref:`Import<section-Import>`\ \* \ :ref:`Type<section-Type>`\ +
+		: \ :ref:`Package<section-Package>`\ ? \ :ref:`Import<section-Import>`\ \* \ :ref:`UnitBody<section-UnitBody>`
 
 		;
 
@@ -34,11 +34,25 @@ Structure
 
 		;
 
-	.. _section-Type:
+	.. _section-UnitBody:
 	.. rst-class:: non-terminal
 
-	Type
+	UnitBody
+		: \ :ref:`UnitEntity<section-UnitEntity>`\ \*
+
+		;
+
+	.. _section-UnitEntity:
+	.. rst-class:: non-terminal
+
+	UnitEntity
+		: \ :ref:`TypeVariable<section-TypeVariable>`
+
+		: \ :ref:`TypeConstant<section-TypeConstant>`
+
 		: \ :ref:`Class<section-Class>`
+
+		: \ :ref:`TypeFunction<section-TypeFunction>`
 
 		;
 

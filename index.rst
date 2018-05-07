@@ -10,6 +10,7 @@ Welcome to Beagle's documentation!
     :maxdepth: 4
 
     language/basics.rst
+    language/modules.rst
     language/units.rst
     language/structures.rst
     language/classes.rst
