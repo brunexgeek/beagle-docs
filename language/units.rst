@@ -7,7 +7,13 @@ Each source file is a compilation unit in Beagle. Compilation units contain:
 
 * Optional package declaration
 * Optional import declarations
-* One or more type declarations
+* Any number of the following elements with no particular order:
+
+  - Variables
+  - Constants
+  - Functions
+  - Classes
+  - Structures
 
 .. _section-CompilationUnit-Package:
 

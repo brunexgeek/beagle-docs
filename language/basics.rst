@@ -151,39 +151,39 @@ Beagle introduces the concept of functional programming with regular functions a
     def factorial( value : int )
     {
         var result = 1
-        for (i = 2; i < value; ++i)
+        for i in range(2, value)
             result *= i
         return result
     }
 
-Anonymous functions are defined inside other functions, enabling fast implementation for specific operations like event handling or callbacks.
-
-.. code-block:: beagle
-
-    // anonymouns function with single expression
-    (x : int) : int => return x * x
-
-    // a little more complex fanonymous unction
-    (x : int, y : int) : int => {
-        var z = x * y
-        return z
-    }
-
-The return type can be omited if the compiler can deduce it. Also, functions are `first-class citizens <https://en.wikipedia.org/wiki/First-class_citizen>`_ so you can assign them to variables or pass as arguments for other functions or methods.
-
-.. code-block:: beagle
-
-    var function = (a : int, b : int) => return a < b
-    var numbers = 10..0
-    numbers.sort(function)
-
-..  If the function does not require any parameter, the parameter list can be omited completely.
-
-    .. code-block:: beagle
-
-        Console.print({
-            const x = 10
-            var y = x + 6
-            return y
-        });
-
+.. Anonymous functions are defined inside other functions, enabling fast implementation for specific operations like event handling or callbacks.
+..
+.. .. code-block:: beagle
+..
+..     // anonymouns function with single expression
+..     (x : int) : int => return x * x
+..
+..     // a little more complex fanonymous unction
+..     (x : int, y : int) : int => {
+..         var z = x * y
+..         return z
+..    }
+..
+.. The return type can be omited if the compiler can deduce it. Also, functions are `first-class citizens <https://en.wikipedia.org/wiki/First-class_citizen>`_ so you can assign them to variables or pass as arguments for other functions or methods.
+..
+.. .. code-block:: beagle
+..
+..     var function = (a : int, b : int) => return a < b
+..     var numbers = 10..0
+..     numbers.sort(function)
+..
+.. ..  If the function does not require any parameter, the parameter list can be omited completely.
+..
+..     .. code-block:: beagle
+..
+..         Console.print({
+..             const x = 10
+..             var y = x + 6
+..             return y
+..         });
+..

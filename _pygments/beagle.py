@@ -145,7 +145,7 @@ class BeagleLexer(RegexLexer):
             (r'/\*', Comment.Multiline, 'comment'),
             (ur'(@|#)%s' % idrest, Name.Decorator),
             (ur'(ca(?:se|tch)|d(?:ef|o)|else|'
-             ur'finally|or|i(?:f|s|n)|then|elif|'
+             ur'finally|f?or|i(?:f|s|n)|then|elif|'
              ur'lazy|match|new|return|self|struct|'
              ur't(?:ry|hrow)|var|const|w(?:hile|ith)|yield)\b|'
              u'(<[%:-]|=>|>:|[#=@_\u21D2\u2190])(\\b|(?=\\s)|$)', Keyword),
